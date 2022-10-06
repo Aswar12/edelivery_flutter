@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "629426689993",
+    "project_id": "edelivery-53aec",
+    "storage_bucket": "edelivery-53aec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629426689993:android:5ad0e7ec7f3a901c40fa18",
+        "android_client_info": {
+          "package_name": "com.aswar.edelivery_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629426689993-llul2uhutvglqg4jiv52o5g0q84t9slf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8T2TJMOTnwTMWO6KuwvCcAMHTRy5toyA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629426689993-llul2uhutvglqg4jiv52o5g0q84t9slf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
