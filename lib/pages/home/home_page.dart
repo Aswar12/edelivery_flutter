@@ -1,3 +1,8 @@
+import 'package:dots_indicator/dots_indicator.dart';
+import 'package:edelivery_flutter/models/product_model.dart';
+import 'package:edelivery_flutter/pages/app_column.dart';
+import 'package:edelivery_flutter/pages/product_page.dart';
+import 'package:edelivery_flutter/providers/page_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:edelivery_flutter/models/user_model.dart';
@@ -7,21 +12,47 @@ import 'package:edelivery_flutter/theme.dart';
 import 'package:edelivery_flutter/widgets/product_card.dart';
 import 'package:edelivery_flutter/widgets/product_tile.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  PageController pageController = PageController(viewportFraction: 0.85);
+  var _currPageValue = 0.0;
+  double _scaleFactor = 0.8;
+  double _height = Dimenssions.pageViewContainer;
+  @override
+  void initState() {
+    super.initState();
+    pageController.addListener(() {
+      setState(() {
+        _currPageValue = pageController.page;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     UserModel user = authProvider.user;
     ProductProvider productProvider = Provider.of<ProductProvider>(context);
+    PageProvider pageProvider = Provider.of<PageProvider>(context);
 
     Widget header() {
       return Container(
         margin: EdgeInsets.only(
-          top: defaultMargin,
-          left: defaultMargin,
-          right: defaultMargin,
+          top: Dimenssions.height30,
+          left: Dimenssions.width30,
+          right: Dimenssions.width30,
         ),
         child: Row(
           children: [
@@ -32,27 +63,34 @@ class HomePage extends StatelessWidget {
                   Text(
                     'Hallo, ${user.name}',
                     style: primaryTextStyle.copyWith(
-                        fontSize: 18,
+                        fontSize: Dimenssions.font18,
                         fontWeight: semiBold,
                         overflow: TextOverflow.ellipsis),
                   ),
                   Text(
                     '@${user.username}',
                     style: subtitleTextStyle.copyWith(
-                      fontSize: 12,
+                      fontSize: Dimenssions.font14,
                     ),
                   ),
                 ],
               ),
             ),
-            Container(
-              width: 54,
-              height: 54,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: NetworkImage(
-                    user.profilePhotoUrl,
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  pageProvider.currentIndex = 3;
+                });
+              },
+              child: Container(
+                width: Dimenssions.width55,
+                height: Dimenssions.width55,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      user.profilePhotoUrl,
+                    ),
                   ),
                 ),
               ),
@@ -185,14 +223,15 @@ class HomePage extends StatelessWidget {
     Widget popularProductsTitle() {
       return Container(
         margin: EdgeInsets.only(
-          top: 10,
-          left: defaultMargin,
-          right: defaultMargin,
+          top: Dimenssions.height20,
+          left: Dimenssions.width30,
+          right: Dimenssions.width30,
+          bottom: Dimenssions.height10,
         ),
         child: Text(
           'Popular Foods',
           style: primaryTextStyle.copyWith(
-            fontSize: 22,
+            fontSize: Dimenssions.font22,
             fontWeight: semiBold,
           ),
         ),
@@ -200,39 +239,43 @@ class HomePage extends StatelessWidget {
     }
 
     Widget popularProducts() {
-      return Container(
-        margin: const EdgeInsets.only(top: 14),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              SizedBox(
-                width: defaultMargin,
-              ),
-              Row(
-                children: productProvider.products
-                    .map(
-                      (product) => ProductCard(product),
-                    )
-                    .toList(),
-              ),
-            ],
+      return Column(
+        children: [
+          Container(
+            height: Dimenssions.pageView,
+            child: PageView.builder(
+              controller: pageController,
+              itemCount: productProvider.products.length,
+              itemBuilder: (context, position) {
+                return _buildPageItem(position);
+              },
+            ),
           ),
-        ),
+          DotsIndicator(
+            dotsCount: productProvider.products.length,
+            position: _currPageValue,
+            decorator: DotsDecorator(
+              size: const Size.square(9.0),
+              activeSize: const Size(18.0, 9.0),
+              activeColor: mainColor,
+              activeShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0)),
+            ),
+          ),
+        ],
       );
     }
 
     Widget newArrivalsTitle() {
       return Container(
         margin: EdgeInsets.only(
-          top: defaultMargin,
-          left: defaultMargin,
-          right: defaultMargin,
+          left: Dimenssions.width30,
+          right: Dimenssions.width30,
         ),
         child: Text(
           'New Foods',
           style: primaryTextStyle.copyWith(
-            fontSize: 22,
+            fontSize: Dimenssions.font22,
             fontWeight: semiBold,
           ),
         ),
@@ -241,8 +284,8 @@ class HomePage extends StatelessWidget {
 
     Widget newArrivals() {
       return Container(
-        margin: const EdgeInsets.only(
-          top: 14,
+        margin: EdgeInsets.only(
+          top: Dimenssions.height15,
         ),
         child: Column(
           children: productProvider.products
@@ -263,6 +306,101 @@ class HomePage extends StatelessWidget {
         newArrivalsTitle(),
         newArrivals(),
       ],
+    );
+  }
+
+  _buildPageItem(
+    int index,
+  ) {
+    ProductProvider productProvider = Provider.of<ProductProvider>(context);
+    ProductModel product = productProvider.products[index];
+    Matrix4 matrix = Matrix4.identity();
+    if (index == _currPageValue.floor()) {
+      var currScale = 1 - (_currPageValue - index) * (1 - _scaleFactor);
+      var currTrans = _height * (1 - currScale) / 2;
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)
+        ..setTranslationRaw(0, currTrans, 0);
+    } else if (index == _currPageValue.floor() + 1) {
+      var currScale =
+          _scaleFactor + (_currPageValue - index + 1) * (1 - _scaleFactor);
+      var currTrans = _height * (1 - currScale) / 2;
+      matrix = Matrix4.diagonal3Values(1, currScale, 1);
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)
+        ..setTranslationRaw(0, currTrans, 0);
+    } else if (index == _currPageValue.floor() - 1) {
+      var currScale = 1 - (_currPageValue - index) * (1 - _scaleFactor);
+      var currTrans = _height * (1 - currScale) / 2;
+      matrix = Matrix4.diagonal3Values(1, currScale, 1);
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)
+        ..setTranslationRaw(0, currTrans, 0);
+    } else {
+      var currScale = 0.8;
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)
+        ..setTranslationRaw(0, _height * (1 - _scaleFactor) / 2, 1);
+    }
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductPage(product),
+          ),
+        );
+      },
+      child: Transform(
+        transform: matrix,
+        child: Stack(
+          children: [
+            Container(
+              height: Dimenssions.pageViewContainer,
+              margin: EdgeInsets.only(
+                  left: Dimenssions.width10, right: Dimenssions.width10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Dimenssions.radius30),
+                  color: index.isEven
+                      ? const Color(0xff69c5df)
+                      : const Color(0xff9294cc),
+                  image: DecorationImage(
+                    image: NetworkImage(
+                        productProvider.products[index].galleries[0].url),
+                    fit: BoxFit.cover,
+                  )),
+            ),
+            Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  height: Dimenssions.pageTextContainer,
+                  margin: EdgeInsets.only(
+                      left: Dimenssions.width30,
+                      right: Dimenssions.width30,
+                      bottom: Dimenssions.height30),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(Dimenssions.radius20),
+                      color: Colors.white,
+                      // ignore: prefer_const_literals_to_create_immutables
+                      boxShadow: [
+                        const BoxShadow(
+                            color: Color(0xffe8e8e8),
+                            blurRadius: 5.0,
+                            offset: Offset(5, 5)),
+                        const BoxShadow(
+                            color: Colors.white, offset: Offset(-5, 0)),
+                        const BoxShadow(
+                            color: Colors.white, offset: Offset(5, 0))
+                      ]),
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        top: Dimenssions.height15,
+                        left: Dimenssions.width15,
+                        right: Dimenssions.width15),
+                    child: AppColumn(
+                      text: product.name,
+                    ),
+                  ),
+                )),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -58,14 +58,14 @@ class _ProfilePageState extends State<ProfilePage> {
         flexibleSpace: SafeArea(
           child: Container(
             padding: EdgeInsets.all(
-              defaultMargin,
+              Dimenssions.width20,
             ),
             child: Row(
               children: [
                 ClipOval(
                   child: Image.network(
                     user.profilePhotoUrl,
-                    width: 64,
+                    width: Dimenssions.width55,
                   ),
                 ),
                 const SizedBox(
@@ -76,16 +76,16 @@ class _ProfilePageState extends State<ProfilePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Hallo, ${user.name}',
+                        user.name,
                         style: primaryTextStyle.copyWith(
-                          fontSize: 24,
+                          fontSize: Dimenssions.font24,
                           fontWeight: semiBold,
                         ),
                       ),
                       Text(
                         '@${user.username}',
                         style: subtitleTextStyle.copyWith(
-                          fontSize: 16,
+                          fontSize: Dimenssions.font16,
                         ),
                       ),
                     ],
@@ -95,7 +95,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   onTap: handleLogout,
                   child: Image.asset(
                     'assets/button_exit.png',
-                    width: 20,
+                    width: Dimenssions.width20,
                   ),
                 ),
               ],
@@ -107,13 +107,13 @@ class _ProfilePageState extends State<ProfilePage> {
 
     Widget menuItem(String text) {
       return Container(
-        margin: const EdgeInsets.only(top: 16),
+        margin: EdgeInsets.only(top: Dimenssions.height15),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               text,
-              style: secondaryTextStyle.copyWith(fontSize: 13),
+              style: secondaryTextStyle.copyWith(fontSize: Dimenssions.font14),
             ),
             Icon(
               Icons.chevron_right,
@@ -129,7 +129,7 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Container(
           width: double.infinity,
           padding: EdgeInsets.symmetric(
-            horizontal: defaultMargin,
+            horizontal: Dimenssions.width30,
           ),
           decoration: BoxDecoration(
             color: backgroundColor3,
@@ -137,13 +137,13 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: Dimenssions.height20,
               ),
               Text(
                 'Account',
                 style: primaryTextStyle.copyWith(
-                  fontSize: 16,
+                  fontSize: Dimenssions.font16,
                   fontWeight: semiBold,
                 ),
               ),
@@ -161,13 +161,13 @@ class _ProfilePageState extends State<ProfilePage> {
               menuItem(
                 'Help',
               ),
-              const SizedBox(
-                height: 30,
+              SizedBox(
+                height: Dimenssions.height30,
               ),
               Text(
                 'General',
                 style: primaryTextStyle.copyWith(
-                  fontSize: 16,
+                  fontSize: Dimenssions.font16,
                   fontWeight: semiBold,
                 ),
               ),

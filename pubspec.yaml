@@ -41,6 +41,7 @@ dependencies:
   cloud_firestore: ^0.16.0+1
   shared_preferences: ^0.5.3+4
   get: ^3.26.0
+  dots_indicator: ^2.0.0
 
 dev_dependencies:
   flutter_test:
