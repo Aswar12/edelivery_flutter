@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:edelivery_flutter/providers/auth_provider.dart';
 import 'package:edelivery_flutter/providers/cart_provider.dart';
@@ -50,16 +51,14 @@ class _CheckoutPageState extends State<CheckoutPage> {
         backgroundColor: backgroundColor1,
         elevation: 0,
         centerTitle: true,
-        title: const Text(
-          'Checkout Details',
-        ),
+        title: Text('Checkout Details', style: primaryTextStyle),
       );
     }
 
     Widget content() {
       return ListView(
         padding: EdgeInsets.symmetric(
-          horizontal: defaultMargin,
+          horizontal: Dimenssions.width30,
         ),
         children: [
           // NOTE: LIST ITEMS
@@ -73,7 +72,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 Text(
                   'List Items',
                   style: primaryTextStyle.copyWith(
-                    fontSize: 16,
+                    fontSize: Dimenssions.font16,
                     fontWeight: medium,
                   ),
                 ),
@@ -91,25 +90,25 @@ class _CheckoutPageState extends State<CheckoutPage> {
           // NOTE: ADDRESS DETAILS
           Container(
             margin: EdgeInsets.only(
-              top: defaultMargin,
+              top: Dimenssions.width30,
             ),
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(Dimenssions.radius20),
             decoration: BoxDecoration(
               color: backgroundColor4,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(Dimenssions.radius15),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Address Details',
+                  authProvider.user.userLocation.address,
                   style: primaryTextStyle.copyWith(
-                    fontSize: 16,
+                    fontSize: Dimenssions.font16,
                     fontWeight: medium,
                   ),
                 ),
-                const SizedBox(
-                  height: 12,
+                SizedBox(
+                  height: Dimenssions.height15,
                 ),
                 Row(
                   children: [
@@ -117,26 +116,26 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       children: [
                         Image.asset(
                           'assets/icon_store_location.png',
-                          width: 40,
+                          width: Dimenssions.width40,
                         ),
                         Image.asset(
                           'assets/icon_line.png',
-                          height: 30,
+                          height: Dimenssions.height30,
                         ),
                         Image.asset(
                           'assets/icon_your_address.png',
-                          width: 40,
+                          width: Dimenssions.width40,
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      width: 12,
+                    SizedBox(
+                      width: Dimenssions.width15,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Store Location',
+                          'Nama Kedai',
                           style: secondaryTextStyle.copyWith(
                             fontSize: 12,
                             fontWeight: light,
@@ -177,10 +176,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
             margin: EdgeInsets.only(
               top: defaultMargin,
             ),
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(Dimenssions.radius15),
             decoration: BoxDecoration(
               color: backgroundColor4,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(Dimenssions.radius15),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,12 +187,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 Text(
                   'Payment Summary',
                   style: primaryTextStyle.copyWith(
-                    fontSize: 16,
+                    fontSize: Dimenssions.font16,
                     fontWeight: medium,
                   ),
                 ),
-                const SizedBox(
-                  height: 12,
+                SizedBox(
+                  height: Dimenssions.width15,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -201,7 +200,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     Text(
                       'Product Quantity',
                       style: secondaryTextStyle.copyWith(
-                        fontSize: 12,
+                        fontSize: Dimenssions.width15,
                       ),
                     ),
                     Text(
@@ -212,8 +211,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 12,
+                SizedBox(
+                  height: Dimenssions.width15,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -221,19 +220,21 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     Text(
                       'Product Price',
                       style: secondaryTextStyle.copyWith(
-                        fontSize: 12,
+                        fontSize: Dimenssions.width15,
                       ),
                     ),
                     Text(
-                      '\$${cartProvider.totalPrice()}',
+                      NumberFormat.currency(
+                              locale: 'id', symbol: 'Rp ', decimalDigits: 0)
+                          .format(cartProvider.totalPrice()),
                       style: primaryTextStyle.copyWith(
                         fontWeight: medium,
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 12,
+                SizedBox(
+                  height: Dimenssions.width15,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -241,7 +242,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     Text(
                       'Shipping',
                       style: secondaryTextStyle.copyWith(
-                        fontSize: 12,
+                        fontSize: Dimenssions.width15,
                       ),
                     ),
                     Text(
@@ -252,8 +253,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 12,
+                SizedBox(
+                  height: Dimenssions.width15,
                 ),
                 const Divider(
                   thickness: 1,
@@ -272,7 +273,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       ),
                     ),
                     Text(
-                      '\$${cartProvider.totalPrice()}',
+                      NumberFormat.currency(
+                              locale: 'id', symbol: 'Rp ', decimalDigits: 0)
+                          .format(cartProvider.totalPrice()),
                       style: priceTextStyle.copyWith(
                         fontWeight: semiBold,
                       ),
@@ -309,7 +312,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     style: TextButton.styleFrom(
                       backgroundColor: primaryColor,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius:
+                            BorderRadius.circular(Dimenssions.width15),
                       ),
                     ),
                     child: Text(

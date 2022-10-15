@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:edelivery_flutter/models/product_model.dart';
 import 'package:edelivery_flutter/pages/product_page.dart';
 import 'package:edelivery_flutter/theme.dart';
+import 'package:intl/intl.dart';
 
 class ProductTile extends StatelessWidget {
   final ProductModel product;
@@ -64,7 +65,9 @@ class ProductTile extends StatelessWidget {
                     height: 6,
                   ),
                   Text(
-                    '\$${product.price}',
+                    NumberFormat.currency(
+                            locale: 'id', symbol: 'Rp ', decimalDigits: 0)
+                        .format(product.price),
                     style: priceTextStyle.copyWith(
                       fontWeight: medium,
                     ),

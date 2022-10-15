@@ -18,9 +18,8 @@ class WishlistPage extends StatelessWidget {
       return AppBar(
         backgroundColor: backgroundColor1,
         centerTitle: true,
-        title: const Text(
-          'Favorite Shoes',
-        ),
+        title: Text('Favorite Shoes',
+            style: primaryTextStyle.copyWith(color: primaryTextColor)),
         elevation: 0,
         automaticallyImplyLeading: false,
       );
@@ -36,38 +35,38 @@ class WishlistPage extends StatelessWidget {
             children: [
               Image.asset(
                 'assets/image_wishlist.png',
-                width: 74,
+                width: Dimenssions.width80,
               ),
-              const SizedBox(
-                height: 23,
+              SizedBox(
+                height: Dimenssions.height22,
               ),
               Text(
                 ' You don\'t have dream shoes?',
                 style: primaryTextStyle.copyWith(
-                  fontSize: 16,
+                  fontSize: Dimenssions.font16,
                   fontWeight: medium,
                 ),
               ),
-              const SizedBox(
-                height: 12,
+              SizedBox(
+                height: Dimenssions.height15,
               ),
               Text(
                 'Let\'s find your favorite shoes',
                 style: secondaryTextStyle,
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: Dimenssions.height20,
               ),
               SizedBox(
-                height: 44,
+                height: Dimenssions.height45,
                 child: TextButton(
                   onPressed: () {
                     pageProvider.currentIndex = 0;
                   },
                   style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 10,
-                      horizontal: 24,
+                    padding: EdgeInsets.symmetric(
+                      vertical: Dimenssions.height10,
+                      horizontal: Dimenssions.width25,
                     ),
                     backgroundColor: primaryColor,
                     shape: RoundedRectangleBorder(
@@ -77,7 +76,7 @@ class WishlistPage extends StatelessWidget {
                   child: Text(
                     'Explore Store',
                     style: primaryTextStyle.copyWith(
-                      fontSize: 16,
+                      fontSize: Dimenssions.font16,
                       fontWeight: medium,
                     ),
                   ),

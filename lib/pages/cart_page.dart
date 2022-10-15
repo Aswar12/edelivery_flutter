@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:edelivery_flutter/providers/cart_provider.dart';
 import 'package:edelivery_flutter/theme.dart';
@@ -29,30 +30,30 @@ class CartPage extends StatelessWidget {
           children: [
             Image.asset(
               'assets/icon_empty_cart.png',
-              width: 80,
+              width: Dimenssions.width80,
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: Dimenssions.height20,
             ),
             Text(
               'Opss! Your Cart is Empty',
               style: primaryTextStyle.copyWith(
-                fontSize: 16,
+                fontSize: Dimenssions.font16,
                 fontWeight: medium,
               ),
             ),
-            const SizedBox(
-              height: 12,
+            SizedBox(
+              height: Dimenssions.height15,
             ),
             Text(
               'Let\'s find your favorite shoes',
               style: secondaryTextStyle,
             ),
             Container(
-              width: 154,
-              height: 44,
-              margin: const EdgeInsets.only(
-                top: 20,
+              width: Dimenssions.width150,
+              height: Dimenssions.height45,
+              margin: EdgeInsets.only(
+                top: Dimenssions.height20,
               ),
               child: TextButton(
                 onPressed: () {
@@ -62,13 +63,13 @@ class CartPage extends StatelessWidget {
                 style: TextButton.styleFrom(
                   backgroundColor: primaryColor,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(Dimenssions.radius20),
                   ),
                 ),
                 child: Text(
                   'Explore Store',
                   style: primaryTextStyle.copyWith(
-                    fontSize: 16,
+                    fontSize: Dimenssions.font16,
                     fontWeight: medium,
                   ),
                 ),
@@ -94,12 +95,12 @@ class CartPage extends StatelessWidget {
 
     Widget customBottomNav() {
       return SizedBox(
-        height: 180,
+        height: Dimenssions.height180,
         child: Column(
           children: [
             Container(
               margin: EdgeInsets.symmetric(
-                horizontal: defaultMargin,
+                horizontal: Dimenssions.width30,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -109,27 +110,29 @@ class CartPage extends StatelessWidget {
                     style: primaryTextStyle,
                   ),
                   Text(
-                    '\$${cartProvider.totalPrice()}',
+                    NumberFormat.currency(
+                            locale: 'id', symbol: 'Rp ', decimalDigits: 0)
+                        .format(cartProvider.totalPrice()),
                     style: priceTextStyle.copyWith(
-                      fontSize: 16,
+                      fontSize: Dimenssions.font16,
                       fontWeight: semiBold,
                     ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: Dimenssions.height30,
             ),
             Divider(
               thickness: 0.3,
               color: subtitleColor,
             ),
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: Dimenssions.height30,
             ),
             Container(
-              height: 50,
+              height: Dimenssions.height50,
               margin: EdgeInsets.symmetric(
                 horizontal: defaultMargin,
               ),
@@ -139,11 +142,11 @@ class CartPage extends StatelessWidget {
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: primaryColor,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: Dimenssions.height20,
                   ),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(Dimenssions.radius15),
                   ),
                 ),
                 child: Row(
@@ -152,7 +155,7 @@ class CartPage extends StatelessWidget {
                     Text(
                       'Continue to Checkout',
                       style: primaryTextStyle.copyWith(
-                        fontSize: 16,
+                        fontSize: Dimenssions.font16,
                         fontWeight: semiBold,
                       ),
                     ),

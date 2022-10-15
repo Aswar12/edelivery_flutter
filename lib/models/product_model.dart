@@ -1,5 +1,6 @@
 import 'package:edelivery_flutter/models/category_model.dart';
 import 'package:edelivery_flutter/models/gallery_model.dart';
+import 'package:edelivery_flutter/models/kedai_model.dart';
 
 class ProductModel {
   int id;
@@ -7,6 +8,7 @@ class ProductModel {
   double price;
   String description;
   String tags;
+  KedaiModel kedai;
   CategoryModel category;
   DateTime createdAt;
   DateTime updatedAt;
@@ -18,6 +20,7 @@ class ProductModel {
     this.price,
     this.description,
     this.tags,
+    this.kedai,
     this.category,
     this.createdAt,
     this.updatedAt,
@@ -30,6 +33,7 @@ class ProductModel {
     price = double.parse(json['price'].toString());
     description = json['description'];
     tags = json['tags'];
+    kedai = KedaiModel.fromJson(json['kedai']);
     category = CategoryModel.fromJson(json['category']);
     galleries = json['galleries']
         .map<GalleryModel>((gallery) => GalleryModel.fromJson(gallery))
@@ -45,6 +49,7 @@ class ProductModel {
       'price': price,
       'description': description,
       'tags': tags,
+      'kedai': kedai.toJson(),
       'category': category.toJson(),
       'galleries': galleries.map((gallery) => gallery.toJson()).toList(),
       'created_at': createdAt.toString(),

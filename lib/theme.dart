@@ -17,19 +17,20 @@ Color mainBlackColor = const Color(0xff332d2b);
 //  Color yellowColor = =const Color ( 0xFFfa7552 ) ;
 Color yellowColor = const Color(0xffffd379);
 
-Color primaryColor = const Color(0xff6C5ECF);
+Color primaryColor = const Color(0xff38ABBE);
 Color secondaryColor = const Color(0xff38ABBE);
 Color alertColor = const Color(0xffED6363);
 Color priceColor = const Color(0xff2C96F1);
-Color backgroundColor1 = Color(0xFFFFFFFF);
-Color backgroundColor2 = Color(0xFFFEFEFF);
-Color backgroundColor3 = Color(0xFFFFFFFF);
-Color backgroundColor4 = const Color(0xff252836);
-Color backgroundColor5 = const Color(0xff2B2844);
-Color backgroundColor6 = const Color(0xffECEDEF);
-Color primaryTextColor = Color(0xFF4B4343);
-Color secondaryTextColor = Color(0xFF000000);
-Color subtitleColor = const Color(0xff504F5E);
+Color backgroundColor1 = const Color(0xFFFFFFFF);
+Color backgroundColor2 = const Color(0xFFFEFEFF);
+Color backgroundColor3 = Color(0xFFDDDDDD);
+Color backgroundColor4 = Color.fromARGB(255, 204, 203, 203);
+Color backgroundColor5 = Color(0xFFD4D1D1);
+Color backgroundColor6 = Color(0xFF000000);
+Color backgroundColor7 = Color(0xFF000000);
+Color primaryTextColor = Color(0xFF0C0C0C);
+Color secondaryTextColor = Color(0xFF585858);
+Color subtitleColor = const Color(0xFF8E8E97);
 Color transparentColor = Colors.transparent;
 Color blackColor = const Color(0xff2E2E2E);
 
@@ -79,10 +80,14 @@ class Dimenssions {
   static double height20 = screenHeight / 42.2;
   static double height22 = screenHeight / 38.45;
   static double height25 = screenHeight / 33.76;
-
   static double height30 = screenHeight / 28.13;
+  static double height35 = screenHeight / 24.38;
+  static double height40 = screenHeight / 21.1;
   static double height45 = screenHeight / 18.76;
-
+  static double height50 = screenHeight / 16.42;
+  static double height55 = screenHeight / 14.78;
+  static double height60 = screenHeight / 13.14;
+  static double height180 = screenHeight / 4.44;
   //dynamic width padding and margin
   static double width5 = screenHeight / 168.8;
   static double width10 = screenHeight / 84.4;
@@ -95,6 +100,11 @@ class Dimenssions {
   static double width45 = screenHeight / 18.76;
   static double width50 = screenHeight / 16.88;
   static double width55 = screenHeight / 15.27;
+  static double width60 = screenHeight / 13.14;
+  static double width65 = screenHeight / 11.5;
+  static double width70 = screenHeight / 10.21;
+  static double width80 = screenHeight / 10.52;
+  static double width150 = screenHeight / 5.64;
 
   static double font10 = screenHeight / 85.33;
   static double font14 = screenHeight / 62;

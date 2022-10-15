@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:edelivery_flutter/models/cart_model.dart';
 import 'package:edelivery_flutter/theme.dart';
+import 'package:intl/intl.dart';
 
 class CheckoutCard extends StatelessWidget {
   final CartModel cart;
@@ -50,7 +51,11 @@ class CheckoutCard extends StatelessWidget {
                   height: 2,
                 ),
                 Text(
-                  '\$${cart.product.price}',
+                  NumberFormat.currency(
+                    locale: 'id',
+                    symbol: 'Rp ',
+                    decimalDigits: 0,
+                  ).format(cart.product.price),
                   style: priceTextStyle,
                 ),
               ],

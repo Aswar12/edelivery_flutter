@@ -65,11 +65,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 ClipOval(
                   child: Image.network(
                     user.profilePhotoUrl,
-                    width: Dimenssions.width55,
+                    width: Dimenssions.width65,
                   ),
                 ),
-                const SizedBox(
-                  width: 16,
+                SizedBox(
+                  width: Dimenssions.width15,
                 ),
                 Expanded(
                   child: Column(
@@ -78,7 +78,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Text(
                         user.name,
                         style: primaryTextStyle.copyWith(
-                          fontSize: Dimenssions.font24,
+                          fontSize: Dimenssions.font20,
                           fontWeight: semiBold,
                         ),
                       ),

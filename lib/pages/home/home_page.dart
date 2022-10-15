@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:edelivery_flutter/models/product_model.dart';
 import 'package:edelivery_flutter/pages/app_column.dart';
@@ -22,8 +24,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   PageController pageController = PageController(viewportFraction: 0.85);
   var _currPageValue = 0.0;
-  double _scaleFactor = 0.8;
-  double _height = Dimenssions.pageViewContainer;
+  final double _scaleFactor = 0.8;
+  final double _height = Dimenssions.pageViewContainer;
+
   @override
   void initState() {
     super.initState();
@@ -100,126 +103,6 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-    Widget categories() {
-      return Container(
-        margin: EdgeInsets.only(
-          top: defaultMargin,
-        ),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              SizedBox(
-                width: defaultMargin,
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
-                margin: const EdgeInsets.only(right: 16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: primaryColor,
-                ),
-                child: Text(
-                  'All Foods',
-                  style: primaryTextStyle.copyWith(
-                    fontSize: 13,
-                    fontWeight: medium,
-                  ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
-                margin: const EdgeInsets.only(right: 16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: subtitleColor,
-                  ),
-                  color: transparentColor,
-                ),
-                child: Text(
-                  'Running',
-                  style: subtitleTextStyle.copyWith(
-                    fontSize: 13,
-                    fontWeight: medium,
-                  ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
-                margin: const EdgeInsets.only(right: 16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: subtitleColor,
-                  ),
-                  color: transparentColor,
-                ),
-                child: Text(
-                  'Training',
-                  style: subtitleTextStyle.copyWith(
-                    fontSize: 13,
-                    fontWeight: medium,
-                  ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
-                margin: const EdgeInsets.only(right: 16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: subtitleColor,
-                  ),
-                  color: transparentColor,
-                ),
-                child: Text(
-                  'Basketball',
-                  style: subtitleTextStyle.copyWith(
-                    fontSize: 13,
-                    fontWeight: medium,
-                  ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 10,
-                ),
-                margin: const EdgeInsets.only(right: 16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: subtitleColor,
-                  ),
-                  color: transparentColor,
-                ),
-                child: Text(
-                  'Hiking',
-                  style: subtitleTextStyle.copyWith(
-                    fontSize: 13,
-                    fontWeight: medium,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
     Widget popularProductsTitle() {
       return Container(
         margin: EdgeInsets.only(
@@ -244,8 +127,8 @@ class _HomePageState extends State<HomePage> {
           Container(
             height: Dimenssions.pageView,
             child: PageView.builder(
-              controller: pageController,
               itemCount: productProvider.products.length,
+              controller: pageController,
               itemBuilder: (context, position) {
                 return _buildPageItem(position);
               },
@@ -394,7 +277,10 @@ class _HomePageState extends State<HomePage> {
                         left: Dimenssions.width15,
                         right: Dimenssions.width15),
                     child: AppColumn(
-                      text: product.name,
+                      name: product.name,
+                      price: product.price,
+                      kedai: product.kedai.name,
+                      category: product.category.name,
                     ),
                   ),
                 )),

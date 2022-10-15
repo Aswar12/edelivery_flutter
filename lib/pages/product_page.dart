@@ -1,44 +1,23 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:edelivery_flutter/models/product_model.dart';
 import 'package:edelivery_flutter/pages/detail_chat_page.dart';
 import 'package:edelivery_flutter/providers/cart_provider.dart';
 import 'package:edelivery_flutter/providers/wishlist_provider.dart';
 import 'package:edelivery_flutter/theme.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class ProductPage extends StatefulWidget {
   final ProductModel product;
-  // ignore: use_key_in_widget_constructors
-  const ProductPage(this.product);
+  const ProductPage(this.product, {Key key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _ProductPageState createState() => _ProductPageState();
 }
 
 class _ProductPageState extends State<ProductPage> {
-  PageController pageController = PageController(viewportFraction: 0.85);
-  var _currPageValue = 0.0;
-  final double _scaleFactor = 0.8;
-  final double _height = Dimenssions.popularFoodDetailImgSize;
-  @override
-  void initState() {
-    super.initState();
-    pageController.addListener(() {
-      setState(() {
-        _currPageValue = pageController.page;
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    pageController.dispose();
-    super.dispose();
-  }
-
   int currentIndex = 0;
 
   @override
@@ -49,7 +28,7 @@ class _ProductPageState extends State<ProductPage> {
     Future<void> showSuccessDialog() async {
       return showDialog(
         context: context,
-        builder: (BuildContext context) => SizedBox(
+        builder: (BuildContext context) => Container(
           width: MediaQuery.of(context).size.width - (2 * defaultMargin),
           child: AlertDialog(
             backgroundColor: backgroundColor3,
@@ -73,10 +52,10 @@ class _ProductPageState extends State<ProductPage> {
                   ),
                   Image.asset(
                     'assets/icon_success.png',
-                    width: 100,
+                    width: Dimenssions.width50 * 2,
                   ),
-                  const SizedBox(
-                    height: 12,
+                  SizedBox(
+                    height: Dimenssions.height15,
                   ),
                   Text(
                     'Hurray :)',
@@ -85,19 +64,19 @@ class _ProductPageState extends State<ProductPage> {
                       fontWeight: semiBold,
                     ),
                   ),
-                  const SizedBox(
-                    height: 12,
+                  SizedBox(
+                    height: Dimenssions.height15,
                   ),
                   Text(
-                    'Item added successfully',
+                    'Food added successfully',
                     style: secondaryTextStyle,
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
                   SizedBox(
-                    width: 154,
-                    height: 44,
+                    height: Dimenssions.height20,
+                  ),
+                  Container(
+                    width: Dimenssions.width150,
+                    height: Dimenssions.width45,
                     child: TextButton(
                       onPressed: () {
                         Navigator.pushNamed(context, '/cart');
@@ -125,15 +104,88 @@ class _ProductPageState extends State<ProductPage> {
       );
     }
 
+    Widget header() {
+      int index = -1;
+      return Column(
+        children: [
+          Container(
+            margin: EdgeInsets.only(
+              top: Dimenssions.height20,
+              left: defaultMargin,
+              right: defaultMargin,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Icon(
+                    Icons.chevron_left,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/cart');
+                  },
+                  child: Icon(
+                    Icons.shopping_bag,
+                    color: mainColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          CarouselSlider(
+            items: widget.product.galleries
+                .map(
+                  (image) => ClipRRect(
+                    borderRadius: BorderRadius.circular(Dimenssions.radius20),
+                    child: Image.network(
+                      image.url,
+                      width: MediaQuery.of(context).size.width,
+                      height: Dimenssions.popularFoodDetailImgSize,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )
+                .toList(),
+            options: CarouselOptions(
+              autoPlay: true,
+              autoPlayInterval: const Duration(seconds: 3),
+              enlargeCenterPage: true,
+              initialPage: 0,
+              viewportFraction: 0.8,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  currentIndex = index;
+                });
+              },
+            ),
+          ),
+          DotsIndicator(
+            dotsCount: widget.product.galleries.length,
+            position: currentIndex.toDouble(),
+            decorator: DotsDecorator(
+              size: const Size.square(9.0),
+              activeSize: const Size(18.0, 9.0),
+              activeColor: mainColor,
+              activeShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0)),
+            ),
+          ),
+        ],
+      );
+    }
+
     Widget content() {
+      int index = -1;
+
       return Container(
-        height: MediaQuery.of(context).size.height -
-            Dimenssions.popularFoodDetailImgSize +
-            20,
-        width: MediaQuery.of(context).size.width,
-        margin: const EdgeInsets.only(top: 17),
+        width: double.infinity,
         decoration: BoxDecoration(
-          borderRadius: const BorderRadius.vertical(
+          borderRadius: BorderRadius.vertical(
             top: Radius.circular(24),
           ),
           color: backgroundColor1,
@@ -177,7 +229,7 @@ class _ProductPageState extends State<ProductPage> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             backgroundColor: secondaryColor,
-                            content: const Text(
+                            content: Text(
                               'Has been added to the Wishlist',
                               textAlign: TextAlign.center,
                             ),
@@ -187,7 +239,7 @@ class _ProductPageState extends State<ProductPage> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             backgroundColor: alertColor,
-                            content: const Text(
+                            content: Text(
                               'Has been removed from the Wishlist',
                               textAlign: TextAlign.center,
                             ),
@@ -198,7 +250,7 @@ class _ProductPageState extends State<ProductPage> {
                     child: Image.asset(
                       wishlistProvider.isWishlist(widget.product)
                           ? 'assets/button_wishlist_blue.png'
-                          : 'assets/button_wishlist.png',
+                          : 'assets/love_btn.png',
                       width: 46,
                     ),
                   ),
@@ -208,13 +260,13 @@ class _ProductPageState extends State<ProductPage> {
 
             // NOTE: PRICE
             Container(
-              width: MediaQuery.of(context).size.width,
+              width: double.infinity,
               margin: EdgeInsets.only(
                 top: 20,
                 left: defaultMargin,
                 right: defaultMargin,
               ),
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(4),
@@ -227,7 +279,8 @@ class _ProductPageState extends State<ProductPage> {
                     style: primaryTextStyle,
                   ),
                   Text(
-                    '\$${widget.product.price}',
+                    NumberFormat.currency(locale: 'id', symbol: 'Rp ')
+                        .format(widget.product.price),
                     style: priceTextStyle.copyWith(
                       fontSize: 16,
                       fontWeight: semiBold,
@@ -254,7 +307,7 @@ class _ProductPageState extends State<ProductPage> {
                       fontWeight: medium,
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 12,
                   ),
                   Text(
@@ -272,49 +325,57 @@ class _ProductPageState extends State<ProductPage> {
       );
     }
 
-    buildGalleryItem(int index) {
-      Matrix4 matrix = Matrix4.identity();
-      if (index == _currPageValue.floor()) {
-        var currScale = 1 - (_currPageValue - index) * (1 - _scaleFactor);
-        var currTrans = _height * (1 - currScale) / 2;
-        matrix = Matrix4.diagonal3Values(1, currScale, 1)
-          ..setTranslationRaw(0, currTrans, 0);
-      } else if (index == _currPageValue.floor() + 1) {
-        var currScale =
-            _scaleFactor + (_currPageValue - index + 1) * (1 - _scaleFactor);
-        var currTrans = _height * (1 - currScale) / 2;
-        matrix = Matrix4.diagonal3Values(1, currScale, 1);
-        matrix = Matrix4.diagonal3Values(1, currScale, 1)
-          ..setTranslationRaw(0, currTrans, 0);
-      } else if (index == _currPageValue.floor() - 1) {
-        var currScale = 1 - (_currPageValue - index) * (1 - _scaleFactor);
-        var currTrans = _height * (1 - currScale) / 2;
-        matrix = Matrix4.diagonal3Values(1, currScale, 1);
-        matrix = Matrix4.diagonal3Values(1, currScale, 1)
-          ..setTranslationRaw(0, currTrans, 0);
-      } else {
-        var currScale = 0.8;
-        matrix = Matrix4.diagonal3Values(1, currScale, 1)
-          ..setTranslationRaw(0, _height * (1 - _scaleFactor) / 2, 1);
-      }
-      return Transform(
-        transform: matrix,
-        child: Stack(
+    Widget bottonbar() {
+      return Container(
+        width: double.infinity,
+        margin: EdgeInsets.all(defaultMargin),
+        child: Row(
           children: [
-            Container(
-              height: Dimenssions.popularFoodDetailImgSize,
-              margin: EdgeInsets.only(
-                  top: Dimenssions.height45,
-                  left: Dimenssions.width10,
-                  right: Dimenssions.width10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimenssions.radius30),
-                color: index.isEven
-                    ? const Color(0xff69c5df)
-                    : const Color(0xff9294cc),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(widget.product.galleries[index].url),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailChatPage(widget.product),
+                  ),
+                );
+              },
+              child: Container(
+                width: 54,
+                height: 54,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                      'assets/button_chat.png',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 16,
+            ),
+            Expanded(
+              child: Container(
+                height: 54,
+                child: TextButton(
+                  onPressed: () {
+                    cartProvider.addCart(widget.product);
+                    showSuccessDialog();
+                  },
+                  style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    backgroundColor: primaryColor,
+                  ),
+                  child: Text(
+                    'Add to Cart',
+                    style: primaryTextStyle.copyWith(
+                      fontSize: 16,
+                      fontWeight: semiBold,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -324,143 +385,14 @@ class _ProductPageState extends State<ProductPage> {
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor6,
-      body: Stack(
+      backgroundColor: backgroundColor1,
+      body: ListView(
         children: [
-          Positioned(
-            top: Dimenssions.height45,
-            left: Dimenssions.width25,
-            right: Dimenssions.width25,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Icon(
-                    Icons.chevron_left,
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/cart');
-                  },
-                  child: Icon(
-                    Icons.shopping_bag,
-                    color: mainColor,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              margin: EdgeInsets.only(
-                top: Dimenssions.height22,
-              ),
-              height: Dimenssions.pageView,
-              child: PageView.builder(
-                controller: pageController,
-                itemCount: widget.product.galleries.length,
-                itemBuilder: (context, position) {
-                  return buildGalleryItem(position);
-                },
-              ),
-            ),
-          ),
-          Positioned(
-            top: Dimenssions.popularFoodDetailImgSize - 25,
-            left: 0,
-            right: 0,
-            child: DotsIndicator(
-              dotsCount: widget.product.galleries.length,
-              position: _currPageValue,
-              decorator: DotsDecorator(
-                size: const Size.square(9.0),
-                activeSize: const Size(18.0, 9.0),
-                activeColor: mainColor,
-                activeShape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
-              ),
-            ),
-          ),
-          Positioned(
-            top: Dimenssions.popularFoodDetailImgSize - 25,
-            left: 0,
-            right: 0,
-            child: SingleChildScrollView(
-              child: content(),
-            ),
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Container(
-              color: backgroundColor1,
-              width: double.infinity,
-              margin: EdgeInsets.all(defaultMargin),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DetailChatPage(widget.product),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      width: 54,
-                      height: 54,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                            'assets/button_chat.png',
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 16,
-                  ),
-                  Expanded(
-                    child: SizedBox(
-                      height: 54,
-                      child: TextButton(
-                        onPressed: () {
-                          cartProvider.addCart(widget.product);
-                          showSuccessDialog();
-                        },
-                        style: TextButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          backgroundColor: primaryColor,
-                        ),
-                        child: Text(
-                          'Add to Cart',
-                          style: primaryTextStyle.copyWith(
-                            fontSize: 16,
-                            fontWeight: semiBold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )
+          header(),
+          content(),
         ],
       ),
+      bottomNavigationBar: bottonbar(),
     );
   }
 }

@@ -9,6 +9,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthService {
   String baseUrl = 'http://edelivery.my.id/api';
 
+  Future<UserModel> fetch(String token) async {
+    var url = '$baseUrl/user';
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': token,
+    };
+    var response = await http.get(url, headers: headers);
+  }
+
   Future<UserModel> register({
     String name,
     String username,

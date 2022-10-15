@@ -40,7 +40,7 @@ class _DetailChatPageState extends State<DetailChatPage> {
 
     Widget header() {
       return PreferredSize(
-        preferredSize: const Size.fromHeight(70),
+        preferredSize: Size.fromHeight(Dimenssions.height60),
         child: AppBar(
           backgroundColor: backgroundColor1,
           centerTitle: false,
@@ -48,19 +48,19 @@ class _DetailChatPageState extends State<DetailChatPage> {
             children: [
               Image.asset(
                 'assets/image_shop_logo_online.png',
-                width: 50,
+                width: Dimenssions.width50,
               ),
-              const SizedBox(
-                width: 12,
+              SizedBox(
+                width: Dimenssions.width20,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Shoe Store',
+                    'Edelivery Food',
                     style: primaryTextStyle.copyWith(
-                      fontWeight: medium,
-                      fontSize: 14,
+                      fontWeight: semiBold,
+                      fontSize: Dimenssions.font16,
                     ),
                   ),
                   Text(
@@ -98,7 +98,7 @@ class _DetailChatPageState extends State<DetailChatPage> {
               borderRadius: BorderRadius.circular(12),
               child: Image.network(
                 widget.product.galleries[0].url,
-                width: 54,
+                width: Dimenssions.width50,
               ),
             ),
             const SizedBox(

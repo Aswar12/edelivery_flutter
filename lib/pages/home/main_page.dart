@@ -28,22 +28,22 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: secondaryColor,
         child: Image.asset(
           'assets/icon_cart.png',
-          width: 20,
+          width: Dimenssions.width20,
         ),
       );
     }
 
     Widget customBottomNav() {
       return ClipRRect(
-        borderRadius: const BorderRadius.vertical(
-          top: Radius.circular(20),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(Dimenssions.radius20),
         ),
         child: BottomAppBar(
           shape: const CircularNotchedRectangle(),
-          notchMargin: 10,
+          notchMargin: Dimenssions.height10,
           clipBehavior: Clip.antiAlias,
           child: BottomNavigationBar(
-            backgroundColor: backgroundColor4,
+            backgroundColor: backgroundColor7,
             currentIndex: pageProvider.currentIndex,
             onTap: (value) {
               // ignore: avoid_print
@@ -54,13 +54,13 @@ class _MainPageState extends State<MainPage> {
             items: [
               BottomNavigationBarItem(
                 icon: Container(
-                  margin: const EdgeInsets.only(
-                    top: 10,
+                  margin: EdgeInsets.only(
+                    top: Dimenssions.height10,
                     bottom: 5,
                   ),
                   child: Image.asset(
                     'assets/icon_home.png',
-                    width: 21,
+                    width: Dimenssions.width20,
                     color: pageProvider.currentIndex == 0
                         ? primaryColor
                         : const Color(0xff808191),
@@ -70,14 +70,14 @@ class _MainPageState extends State<MainPage> {
               ),
               BottomNavigationBarItem(
                 icon: Container(
-                  margin: const EdgeInsets.only(
-                    top: 10,
+                  margin: EdgeInsets.only(
+                    top: Dimenssions.height10,
                     bottom: 5,
                     right: 8,
                   ),
                   child: Image.asset(
                     'assets/icon_chat.png',
-                    width: 20,
+                    width: Dimenssions.width20,
                     color: pageProvider.currentIndex == 1
                         ? primaryColor
                         : const Color(0xff808191),
@@ -87,8 +87,8 @@ class _MainPageState extends State<MainPage> {
               ),
               BottomNavigationBarItem(
                 icon: Container(
-                  margin: const EdgeInsets.only(
-                    top: 10,
+                  margin: EdgeInsets.only(
+                    top: Dimenssions.height10,
                     bottom: 5,
                     left: 8,
                   ),
@@ -104,13 +104,13 @@ class _MainPageState extends State<MainPage> {
               ),
               BottomNavigationBarItem(
                 icon: Container(
-                  margin: const EdgeInsets.only(
-                    top: 10,
+                  margin: EdgeInsets.only(
+                    top: Dimenssions.height10,
                     bottom: 5,
                   ),
                   child: Image.asset(
                     'assets/icon_profile.png',
-                    width: 18,
+                    width: Dimenssions.width20,
                     color: pageProvider.currentIndex == 3
                         ? primaryColor
                         : const Color(0xff808191),

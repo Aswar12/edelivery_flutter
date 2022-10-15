@@ -42,7 +42,7 @@ class ChatPage extends StatelessWidget {
             children: [
               Image.asset(
                 'assets/icon_headset.png',
-                width: 80,
+                width: Dimenssions.width80,
               ),
               SizedBox(
                 height: Dimenssions.height20,
@@ -54,8 +54,8 @@ class ChatPage extends StatelessWidget {
                   fontWeight: medium,
                 ),
               ),
-              const SizedBox(
-                height: 12,
+              SizedBox(
+                height: Dimenssions.height15,
               ),
               Text(
                 'You have never done a transaction',
