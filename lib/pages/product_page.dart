@@ -144,8 +144,8 @@ class _ProductPageState extends State<ProductPage> {
                     borderRadius: BorderRadius.circular(Dimenssions.radius20),
                     child: Image.network(
                       image.url,
-                      width: MediaQuery.of(context).size.width,
                       height: Dimenssions.popularFoodDetailImgSize,
+                      width: MediaQuery.of(context).size.width,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -208,9 +208,22 @@ class _ProductPageState extends State<ProductPage> {
                         Text(
                           widget.product.name,
                           style: primaryTextStyle.copyWith(
-                            fontSize: 18,
+                            fontSize: Dimenssions.font18,
                             fontWeight: semiBold,
                           ),
+                        ),
+                        SizedBox(
+                          height: Dimenssions.height10,
+                        ),
+                        Text(
+                          widget.product.kedai.name,
+                          style: primaryTextStyle.copyWith(
+                            fontSize: Dimenssions.font16,
+                            fontWeight: semiBold,
+                          ),
+                        ),
+                        SizedBox(
+                          height: Dimenssions.height10,
                         ),
                         Text(
                           widget.product.category.name,
@@ -279,7 +292,8 @@ class _ProductPageState extends State<ProductPage> {
                     style: primaryTextStyle,
                   ),
                   Text(
-                    NumberFormat.currency(locale: 'id', symbol: 'Rp ')
+                    NumberFormat.currency(
+                            locale: 'id', symbol: 'Rp ', decimalDigits: 0)
                         .format(widget.product.price),
                     style: priceTextStyle.copyWith(
                       fontSize: 16,

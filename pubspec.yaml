@@ -43,6 +43,11 @@ dependencies:
   get: ^3.26.0
   dots_indicator: ^2.0.0
   intl: ^0.16.1
+  dropdown_formfield: ^0.1.4
+  lottie: ^0.7.0+1
+  google_maps_flutter: ^1.2.0
+  geolocator: ^6.2.1
+  geocoding: ^1.0.5
 
 dev_dependencies:
   flutter_test:

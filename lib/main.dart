@@ -1,3 +1,5 @@
+import 'package:edelivery_flutter/pages/add_address_page.dart';
+import 'package:edelivery_flutter/providers/address_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -54,6 +56,9 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(
           create: (context) => PageProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => AddressProvider(),
+        ),
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
@@ -66,6 +71,7 @@ class _MyAppState extends State<MyApp> {
           '/cart': (context) => const CartPage(),
           '/checkout': (context) => const CheckoutPage(),
           '/checkout-success': (context) => const CheckoutSuccessPage(),
+          '/add-address': (context) => const AddAddressPage(),
         },
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:edelivery_flutter/models/cart_model.dart';
 import 'package:edelivery_flutter/providers/cart_provider.dart';
@@ -55,7 +56,17 @@ class CartCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '\$${cart.product.price}',
+                      cart.product.kedai.name,
+                      style: primaryTextStyle.copyWith(
+                        fontWeight: semiBold,
+                      ),
+                    ),
+                    Text(
+                      NumberFormat.currency(
+                        locale: 'id',
+                        symbol: 'Rp ',
+                        decimalDigits: 0,
+                      ).format(cart.product.price),
                       style: priceTextStyle,
                     ),
                   ],

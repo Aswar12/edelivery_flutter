@@ -5,8 +5,9 @@ class UserModel {
   String name;
   String email;
   String username;
-  UserLocationModel userLocation;
+  List<UserLocationModel> userLocations;
   String profilePhotoUrl;
+  String phoneNumber;
   String token;
 
   UserModel({
@@ -14,8 +15,9 @@ class UserModel {
     this.name,
     this.email,
     this.username,
-    this.userLocation,
+    this.userLocations,
     this.profilePhotoUrl,
+    this.phoneNumber,
     this.token,
   });
 
@@ -23,19 +25,25 @@ class UserModel {
     id = json['id'];
     name = json['name'];
     email = json['email'];
-    userLocation = UserLocationModel.fromJson(json['user_location']);
+    // userLocations = json['user_locations']
+    //     .map<UserLocationModel>((lokasi) => UserLocationModel.fromJson(lokasi))
+    // .toList();
+    phoneNumber = json['phone_number'];
     username = json['username'];
     profilePhotoUrl = json['profile_photo_url'];
     token = json['token'];
   }
+
+  set selectedLocation(selectedLocation) {}
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
       'name': name,
       'email': email,
-      'user_location': userLocation.toJson(),
+      // 'galleries': userLocations.map((lokasi) => lokasi.toJson()).toList(),
       'username': username,
+      'phone_number': phoneNumber,
       'profile_photo_url': profilePhotoUrl,
       'token': token,
     };

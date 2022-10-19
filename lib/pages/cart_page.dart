@@ -16,8 +16,11 @@ class CartPage extends StatelessWidget {
       return AppBar(
         backgroundColor: backgroundColor1,
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'Your Cart',
+          style: primaryTextStyle.copyWith(
+            fontWeight: medium,
+          ),
         ),
         elevation: 0,
       );

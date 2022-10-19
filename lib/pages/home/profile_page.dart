@@ -32,7 +32,8 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
         );
-        Navigator.pushNamed(context, '/sign-in');
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/sign-in', (route) => false);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -65,7 +66,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 ClipOval(
                   child: Image.network(
                     user.profilePhotoUrl,
-                    width: Dimenssions.width65,
+                    width: Dimenssions.width60,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 SizedBox(
@@ -155,11 +157,16 @@ class _ProfilePageState extends State<ProfilePage> {
                   'Edit Profile',
                 ),
               ),
-              menuItem(
-                'Your Orders',
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/add-address');
+                },
+                child: menuItem(
+                  'Add Address',
+                ),
               ),
               menuItem(
-                'Help',
+                'Your Orders',
               ),
               SizedBox(
                 height: Dimenssions.height30,

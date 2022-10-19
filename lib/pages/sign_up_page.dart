@@ -20,6 +20,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController emailController = TextEditingController(text: '');
 
   TextEditingController passwordController = TextEditingController(text: '');
+  TextEditingController phoneNumberController = TextEditingController(text: '');
 
   bool isLoading = false;
 
@@ -36,6 +37,7 @@ class _SignUpPageState extends State<SignUpPage> {
         name: nameController.text,
         username: usernameController.text,
         email: emailController.text,
+        phoneNumber: phoneNumberController.text,
         password: passwordController.text,
       )) {
         Navigator.pushNamed(context, '/home');
@@ -58,14 +60,14 @@ class _SignUpPageState extends State<SignUpPage> {
 
     Widget header() {
       return Container(
-        margin: const EdgeInsets.only(top: 30),
+        margin: EdgeInsets.only(top: Dimenssions.height30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Sign Up',
               style: primaryTextStyle.copyWith(
-                fontSize: 24,
+                fontSize: Dimenssions.font26,
                 fontWeight: semiBold,
               ),
             ),
@@ -83,24 +85,24 @@ class _SignUpPageState extends State<SignUpPage> {
 
     Widget nameInput() {
       return Container(
-        margin: const EdgeInsets.only(top: 50),
+        margin: EdgeInsets.only(top: Dimenssions.height20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Full Name',
               style: primaryTextStyle.copyWith(
-                fontSize: 16,
+                fontSize: Dimenssions.font16,
                 fontWeight: medium,
               ),
             ),
-            const SizedBox(
-              height: 12,
+            SizedBox(
+              height: Dimenssions.height15,
             ),
             Container(
-              height: 50,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
+              height: Dimenssions.height45,
+              padding: EdgeInsets.symmetric(
+                horizontal: Dimenssions.height15,
               ),
               decoration: BoxDecoration(
                 color: backgroundColor2,
@@ -111,10 +113,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   children: [
                     Image.asset(
                       'assets/icon_name.png',
-                      width: 17,
+                      width: Dimenssions.height20,
                     ),
-                    const SizedBox(
-                      width: 16,
+                    SizedBox(
+                      width: Dimenssions.width15,
                     ),
                     Expanded(
                       child: TextFormField(
@@ -135,26 +137,80 @@ class _SignUpPageState extends State<SignUpPage> {
       );
     }
 
+    Widget phoneNumberInput() {
+      return Container(
+        margin: EdgeInsets.only(top: Dimenssions.height20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Phone Number',
+              style: primaryTextStyle.copyWith(
+                fontSize: Dimenssions.font16,
+                fontWeight: medium,
+              ),
+            ),
+            SizedBox(
+              height: Dimenssions.height15,
+            ),
+            Container(
+              height: Dimenssions.height50,
+              padding: EdgeInsets.symmetric(
+                horizontal: Dimenssions.height15,
+              ),
+              decoration: BoxDecoration(
+                color: backgroundColor2,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: Row(
+                  children: [
+                    Image.asset(
+                      'assets/icon_phone.png',
+                      width: Dimenssions.height20,
+                    ),
+                    SizedBox(
+                      width: Dimenssions.width15,
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                        style: primaryTextStyle,
+                        controller: phoneNumberController,
+                        decoration: InputDecoration.collapsed(
+                          hintText: 'Your Phone Number',
+                          hintStyle: subtitleTextStyle,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     Widget usernameInput() {
       return Container(
-        margin: const EdgeInsets.only(top: 20),
+        margin: EdgeInsets.only(top: Dimenssions.height20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Username',
               style: primaryTextStyle.copyWith(
-                fontSize: 16,
+                fontSize: Dimenssions.font16,
                 fontWeight: medium,
               ),
             ),
-            const SizedBox(
-              height: 12,
+            SizedBox(
+              height: Dimenssions.height15,
             ),
             Container(
-              height: 50,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
+              height: Dimenssions.height50,
+              padding: EdgeInsets.symmetric(
+                horizontal: Dimenssions.height15,
               ),
               decoration: BoxDecoration(
                 color: backgroundColor2,
@@ -165,7 +221,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   children: [
                     Image.asset(
                       'assets/icon_username.png',
-                      width: 17,
+                      width: Dimenssions.width20,
                     ),
                     const SizedBox(
                       width: 16,
@@ -191,24 +247,24 @@ class _SignUpPageState extends State<SignUpPage> {
 
     Widget emailInput() {
       return Container(
-        margin: const EdgeInsets.only(top: 20),
+        margin: EdgeInsets.only(top: Dimenssions.height20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Email Address',
               style: primaryTextStyle.copyWith(
-                fontSize: 16,
+                fontSize: Dimenssions.font16,
                 fontWeight: medium,
               ),
             ),
-            const SizedBox(
-              height: 12,
+            SizedBox(
+              height: Dimenssions.height15,
             ),
             Container(
-              height: 50,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
+              height: Dimenssions.height50,
+              padding: EdgeInsets.symmetric(
+                horizontal: Dimenssions.width15,
               ),
               decoration: BoxDecoration(
                 color: backgroundColor2,
@@ -219,10 +275,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   children: [
                     Image.asset(
                       'assets/icon_email.png',
-                      width: 17,
+                      width: Dimenssions.width20,
                     ),
-                    const SizedBox(
-                      width: 16,
+                    SizedBox(
+                      width: Dimenssions.width15,
                     ),
                     Expanded(
                       child: TextFormField(
@@ -245,24 +301,24 @@ class _SignUpPageState extends State<SignUpPage> {
 
     Widget passwordInput() {
       return Container(
-        margin: const EdgeInsets.only(top: 20),
+        margin: EdgeInsets.only(top: Dimenssions.height20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Password',
               style: primaryTextStyle.copyWith(
-                fontSize: 16,
+                fontSize: Dimenssions.font16,
                 fontWeight: medium,
               ),
             ),
-            const SizedBox(
-              height: 12,
+            SizedBox(
+              height: Dimenssions.height15,
             ),
             Container(
-              height: 50,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
+              height: Dimenssions.width50,
+              padding: EdgeInsets.symmetric(
+                horizontal: Dimenssions.width15,
               ),
               decoration: BoxDecoration(
                 color: backgroundColor2,
@@ -273,10 +329,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   children: [
                     Image.asset(
                       'assets/icon_password.png',
-                      width: 17,
+                      width: Dimenssions.width20,
                     ),
-                    const SizedBox(
-                      width: 16,
+                    SizedBox(
+                      width: Dimenssions.width15,
                     ),
                     Expanded(
                       child: TextFormField(
@@ -300,9 +356,9 @@ class _SignUpPageState extends State<SignUpPage> {
 
     Widget signUpButton() {
       return Container(
-        height: 50,
+        height: Dimenssions.width50,
         width: double.infinity,
-        margin: const EdgeInsets.only(top: 30),
+        margin: EdgeInsets.only(top: Dimenssions.height20),
         child: TextButton(
           onPressed: handleSignUp,
           style: TextButton.styleFrom(
@@ -314,7 +370,7 @@ class _SignUpPageState extends State<SignUpPage> {
           child: Text(
             'Sign Up',
             style: primaryTextStyle.copyWith(
-              fontSize: 16,
+              fontSize: Dimenssions.font18,
               fontWeight: medium,
             ),
           ),
@@ -324,7 +380,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
     Widget footer() {
       return Container(
-        margin: const EdgeInsets.only(bottom: 30),
+        margin: EdgeInsets.only(bottom: Dimenssions.height30),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -365,6 +421,7 @@ class _SignUpPageState extends State<SignUpPage> {
               header(),
               nameInput(),
               usernameInput(),
+              phoneNumberInput(),
               emailInput(),
               passwordInput(),
               isLoading ? const LoadingButton() : signUpButton(),

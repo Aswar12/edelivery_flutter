@@ -2,11 +2,9 @@ import 'dart:ffi';
 
 import 'package:edelivery_flutter/theme.dart';
 import 'package:edelivery_flutter/widgets/big_text.dart';
-import 'package:edelivery_flutter/widgets/icon_and_text.dart';
 import 'package:edelivery_flutter/widgets/small_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:intl/number_symbols_data.dart';
 
 class AppColumn extends StatelessWidget {
   String name;
@@ -21,34 +19,32 @@ class AppColumn extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        BigText(
+          text: name,
+          size: Dimenssions.font26,
+        ),
+        SizedBox(height: 5),
         Row(
           children: [
-            BigText(
-              text: name,
-              size: Dimenssions.font26,
-            ),
-            SizedBox(
-              width: Dimenssions.width15,
-            ),
-            BigText(
-              text: '|',
-              size: Dimenssions.font26,
-            ),
-            SizedBox(
-              width: Dimenssions.width15,
-            ),
             SmallText(
               text: kedai,
+              size: Dimenssions.font14,
+            ),
+            SizedBox(
+              width: Dimenssions.width20,
+            ),
+            BigText(text: '|'),
+            SizedBox(
+              width: Dimenssions.width20,
+            ),
+            SmallText(
+              text: category,
               size: Dimenssions.font14,
             ),
           ],
         ),
         SizedBox(height: Dimenssions.height10),
-        SmallText(
-          text: category,
-          size: Dimenssions.font14,
-        ),
-        SizedBox(height: Dimenssions.height10),
+        SizedBox(height: 5),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

@@ -46,12 +46,15 @@ class AuthProvider with ChangeNotifier {
     String username,
     String email,
     String password,
+    String phoneNumber,
+    // String phoneNumber,
   }) async {
     try {
       UserModel user = await AuthService().register(
         name: name,
         username: username,
         email: email,
+        phoneNumber: phoneNumber,
         password: password,
       );
 

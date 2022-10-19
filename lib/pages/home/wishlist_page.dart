@@ -18,7 +18,7 @@ class WishlistPage extends StatelessWidget {
       return AppBar(
         backgroundColor: backgroundColor1,
         centerTitle: true,
-        title: Text('Favorite Shoes',
+        title: Text('Favorite Foods',
             style: primaryTextStyle.copyWith(color: primaryTextColor)),
         elevation: 0,
         automaticallyImplyLeading: false,
@@ -41,7 +41,7 @@ class WishlistPage extends StatelessWidget {
                 height: Dimenssions.height22,
               ),
               Text(
-                ' You don\'t have dream shoes?',
+                ' You don\'t have favorite Foods?',
                 style: primaryTextStyle.copyWith(
                   fontSize: Dimenssions.font16,
                   fontWeight: medium,
@@ -51,7 +51,7 @@ class WishlistPage extends StatelessWidget {
                 height: Dimenssions.height15,
               ),
               Text(
-                'Let\'s find your favorite shoes',
+                'Let\'s find your favorite Foods',
                 style: secondaryTextStyle,
               ),
               SizedBox(

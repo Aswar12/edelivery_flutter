@@ -10,8 +10,9 @@ class CheckoutSuccessPage extends StatelessWidget {
       return AppBar(
         backgroundColor: backgroundColor1,
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'Checkout Success',
+          style: primaryTextStyle.copyWith(color: primaryTextColor),
         ),
         elevation: 0,
       );
@@ -40,7 +41,7 @@ class CheckoutSuccessPage extends StatelessWidget {
               height: 12,
             ),
             Text(
-              'Stay at home while we\nprepare your dream shoes',
+              'Stay at home while we\nprepare your ordered foods',
               style: secondaryTextStyle,
               textAlign: TextAlign.center,
             ),
@@ -62,7 +63,7 @@ class CheckoutSuccessPage extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'Order Other Shoes',
+                  'Order Other Foods',
                   style: primaryTextStyle.copyWith(
                     fontSize: 16,
                     fontWeight: medium,

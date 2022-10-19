@@ -1,3 +1,5 @@
+import 'package:edelivery_flutter/models/user_location_model.dart';
+import 'package:edelivery_flutter/providers/address_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -25,25 +27,32 @@ class _CheckoutPageState extends State<CheckoutPage> {
     TransactionProvider transactionProvider =
         Provider.of<TransactionProvider>(context);
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
-
+    AddressProvider addressProvider = Provider.of<AddressProvider>(context);
     handleCheckout() async {
       setState(() {
         isLoading = true;
       });
 
-      if (await transactionProvider.checkout(
-        authProvider.user.token,
-        cartProvider.carts,
-        cartProvider.totalPrice(),
-      )) {
-        cartProvider.carts = [];
-        Navigator.pushNamedAndRemoveUntil(
-            context, '/checkout-success', (route) => false);
-      }
+      if (addressProvider.userLocations.isEmpty) {
+        Navigator.pushNamed(
+          context,
+          '/add-address',
+        );
+      } else {
+        if (await transactionProvider.checkout(
+          authProvider.user.token,
+          cartProvider.carts,
+          cartProvider.totalPrice(),
+        )) {
+          cartProvider.carts = [];
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/checkout-success', (route) => false);
+        }
 
-      setState(() {
-        isLoading = false;
-      });
+        setState(() {
+          isLoading = false;
+        });
+      }
     }
 
     Widget header() {
@@ -101,7 +110,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  authProvider.user.userLocation.address,
+                  'Address Details',
                   style: primaryTextStyle.copyWith(
                     fontSize: Dimenssions.font16,
                     fontWeight: medium,
@@ -113,6 +122,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 Row(
                   children: [
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Image.asset(
                           'assets/icon_store_location.png',
@@ -135,14 +145,14 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Nama Kedai',
+                          'Nama Penerima',
                           style: secondaryTextStyle.copyWith(
                             fontSize: 12,
                             fontWeight: light,
                           ),
                         ),
                         Text(
-                          'Adidas Core',
+                          authProvider.user.name,
                           style: primaryTextStyle.copyWith(
                             fontWeight: medium,
                           ),
@@ -150,15 +160,35 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         SizedBox(
                           height: defaultMargin,
                         ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Your Address',
+                              style: secondaryTextStyle.copyWith(
+                                fontSize: 12,
+                                fontWeight: light,
+                              ),
+                            ),
+                            SingleChildScrollView(
+                              child: Text(
+                                'Anugrah motor, depan \nwarung sahabat, jalan poros\n makassar pare-pare km75,\n kelurahan Bone',
+                                style: primaryTextStyle.copyWith(
+                                  fontWeight: medium,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                         Text(
-                          'Your Address',
+                          'Your Number Phone',
                           style: secondaryTextStyle.copyWith(
                             fontSize: 12,
                             fontWeight: light,
                           ),
                         ),
                         Text(
-                          'Marsemoon',
+                          authProvider.user.phoneNumber,
                           style: primaryTextStyle.copyWith(
                             fontWeight: medium,
                           ),
@@ -246,7 +276,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       ),
                     ),
                     Text(
-                      'Free',
+                      'Rp. 5000',
                       style: primaryTextStyle.copyWith(
                         fontWeight: medium,
                       ),

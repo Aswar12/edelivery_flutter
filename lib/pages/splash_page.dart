@@ -1,5 +1,6 @@
 import 'package:edelivery_flutter/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:edelivery_flutter/providers/product_provider.dart';
 import 'package:edelivery_flutter/theme.dart';
@@ -17,7 +18,12 @@ class _SplashPageState extends State<SplashPage> {
   bool isAuth = false;
   @override
   void initState() {
-    getInit();
+    Future.delayed(
+      Duration(seconds: 4),
+      (() {
+        getInit();
+      }),
+    );
 
     super.initState();
   }
@@ -26,18 +32,9 @@ class _SplashPageState extends State<SplashPage> {
     await Provider.of<ProductProvider>(context, listen: false).getProducts();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (!mounted) return;
-    if (prefs.getString('token') != null) {
-      setState(() {
-        isAuth = true;
-      });
-    } else {
-      setState(() {
-        isAuth = false;
-      });
-    }
     AuthProvider authProvider =
         Provider.of<AuthProvider>(context, listen: false);
-    if (isAuth) {
+    if (prefs.getString('token') != null) {
       authProvider.autologin();
       Navigator.pushNamed(context, '/home');
     } else {
@@ -50,17 +47,8 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       backgroundColor: backgroundColor1,
       body: Center(
-        child: Container(
-          width: 130,
-          height: 150,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                'assets/image_splash.png',
-              ),
-            ),
-          ),
-        ),
+        child: Lottie.network(
+            'https://assets4.lottiefiles.com/packages/lf20_6sxyjyjj.json'),
       ),
     );
   }
