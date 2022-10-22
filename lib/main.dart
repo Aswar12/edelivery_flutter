@@ -1,4 +1,5 @@
 import 'package:edelivery_flutter/pages/add_address_page.dart';
+import 'package:edelivery_flutter/pages/search_page.dart';
 import 'package:edelivery_flutter/providers/address_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -72,6 +73,7 @@ class _MyAppState extends State<MyApp> {
           '/checkout': (context) => const CheckoutPage(),
           '/checkout-success': (context) => const CheckoutSuccessPage(),
           '/add-address': (context) => const AddAddressPage(),
+          '/search': (context) => const SearchPage(),
         },
       ),
     );

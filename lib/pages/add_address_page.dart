@@ -42,9 +42,18 @@ class _AddAddressPageState extends State<AddAddressPage> {
   @override
   Widget build(BuildContext context) {
     AddressProvider addressProvider = Provider.of<AddressProvider>(context);
+    addresscontroller.text = '${addressProvider.placemark.name ?? ''}'
+        '${addressProvider.placemark.locality ?? ''}'
+        '${addressProvider.placemark.postalCode ?? ''}'
+        '${addressProvider.placemark.country ?? ''}';
+    print("address in my view" + addresscontroller.text);
     return Scaffold(
+      backgroundColor: backgroundColor3,
       appBar: AppBar(
-        title: Text("Add Address"),
+        centerTitle: true,
+        title: Text("Add Address", style: primaryTextStyle),
+        elevation: 0,
+        automaticallyImplyLeading: true,
         backgroundColor: backgroundColor1,
       ),
       body: Column(
@@ -74,6 +83,31 @@ class _AddAddressPageState extends State<AddAddressPage> {
                       addressProvider.setMapController(controller);
                     }),
               ],
+            ),
+          ),
+          SizedBox(
+            height: Dimenssions.height20,
+          ),
+          Container(
+            margin: EdgeInsets.all(Dimenssions.height20),
+            child: TextFormField(
+              autofocus: true,
+              controller: addresscontroller,
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black45),
+                    borderRadius: BorderRadius.circular(Dimenssions.radius15)),
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black45),
+                    borderRadius: BorderRadius.circular(Dimenssions.radius15)),
+                hintText: 'Address',
+                labelText: "Address",
+                labelStyle: primaryTextStyle,
+                prefixIcon: Icon(
+                  Icons.maps_home_work_outlined,
+                  color: primaryTextColor,
+                ),
+              ),
             ),
           )
         ],

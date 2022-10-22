@@ -20,4 +20,16 @@ class ProductProvider with ChangeNotifier {
       print(e);
     }
   }
+
+  Future<void> getProductsByName(String query) async {
+    try {
+      List<ProductModel> products =
+          await ProductService().getProductsByName(query);
+      _products = products;
+      notifyListeners();
+      return products;
+    } catch (e) {
+      print(e);
+    }
+  }
 }

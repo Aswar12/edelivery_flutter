@@ -49,35 +49,53 @@ class _HomePageState extends State<HomePage> {
     UserModel user = authProvider.user;
     ProductProvider productProvider = Provider.of<ProductProvider>(context);
     PageProvider pageProvider = Provider.of<PageProvider>(context);
+    TextEditingController searchController = TextEditingController();
 
     Widget header() {
       return Container(
         margin: EdgeInsets.only(
-          top: Dimenssions.height30,
-          left: Dimenssions.width30,
-          right: Dimenssions.width30,
+          top: Dimenssions.height25,
+          left: Dimenssions.width20,
+          right: Dimenssions.width25,
         ),
         child: Row(
           children: [
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Hallo, ${user.name}',
-                    style: primaryTextStyle.copyWith(
-                        fontSize: Dimenssions.font18,
-                        fontWeight: semiBold,
-                        overflow: TextOverflow.ellipsis),
-                  ),
-                  Text(
-                    '@${user.username}',
-                    style: subtitleTextStyle.copyWith(
-                      fontSize: Dimenssions.font14,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/search');
+                },
+                child: Container(
+                    height: Dimenssions.height40,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black45, width: 2),
+                      borderRadius: BorderRadius.circular(Dimenssions.radius15),
                     ),
-                  ),
-                ],
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 10.0,
+                        ),
+                        Icon(
+                          Icons.search_outlined,
+                          color: Colors.black45,
+                        ),
+                        SizedBox(
+                          width: Dimenssions.width10,
+                        ),
+                        Text(
+                          'Mau Makan Apa Hari Ini?',
+                          style: subtitleTextStyle.copyWith(
+                            fontSize: Dimenssions.font14,
+                            color: Colors.black45,
+                          ),
+                        ),
+                      ],
+                    )),
               ),
+            ),
+            const SizedBox(
+              width: 20.0,
             ),
             GestureDetector(
               onTap: () {

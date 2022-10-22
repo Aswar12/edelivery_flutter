@@ -22,9 +22,9 @@ class ProductTile extends StatelessWidget {
       },
       child: Container(
         margin: EdgeInsets.only(
-          left: defaultMargin,
-          right: defaultMargin,
-          bottom: defaultMargin,
+          left: Dimenssions.height25,
+          right: Dimenssions.height25,
+          bottom: Dimenssions.height25,
         ),
         child: Row(
           children: [
@@ -32,8 +32,8 @@ class ProductTile extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               child: Image.network(
                 product.galleries[0].url,
-                width: 120,
-                height: 120,
+                width: Dimenssions.height80,
+                height: Dimenssions.height80,
                 fit: BoxFit.cover,
               ),
             ),
@@ -44,11 +44,33 @@ class ProductTile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    product.category.name,
-                    style: secondaryTextStyle.copyWith(
-                      fontSize: 12,
-                    ),
+                  Row(
+                    children: [
+                      Text(
+                        product.category.name,
+                        style: secondaryTextStyle.copyWith(
+                          fontSize: 12,
+                        ),
+                      ),
+                      SizedBox(
+                        width: Dimenssions.width10,
+                      ),
+                      Text(
+                        '|',
+                        style: primaryTextStyle.copyWith(
+                          fontSize: Dimenssions.font16,
+                        ),
+                      ),
+                      SizedBox(
+                        width: Dimenssions.width10,
+                      ),
+                      Text(
+                        product.kedai.name,
+                        style: secondaryTextStyle.copyWith(
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 6,

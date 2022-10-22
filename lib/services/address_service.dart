@@ -31,10 +31,11 @@ class AddressService {
     }
   }
 
-  FutureOr<String> getAddressFromGeocode(LatLng latLng) async {
+  Future<http.Response> getAddressFromGeocode(LatLng latLng) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.get('token');
-    var url = '$baseUrl/address';
+    var url = '$baseUrl/geocode-api';
+
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': token,
@@ -44,14 +45,13 @@ class AddressService {
       'lng': latLng.longitude,
     });
 
-    Response response =
-        (await http.post(url, headers: headers, body: body)) as Response;
-    String _address = 'Unknown Location Found';
-    if (response.statusCode == 200) {
-      _address = response.body["results"][0]["formatted_address"].toString();
-      return _address;
-    } else {
-      throw Exception('gagal get address');
-    }
+    http.Response response = await http.post(url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token,
+        },
+        body: body);
+
+    return response;
   }
 }

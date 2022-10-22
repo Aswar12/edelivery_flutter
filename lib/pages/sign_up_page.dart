@@ -27,7 +27,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
-
+    
     handleSignUp() async {
       setState(() {
         isLoading = true;

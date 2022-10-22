@@ -88,6 +88,15 @@ class Dimenssions {
   static double height50 = screenHeight / 16.42;
   static double height55 = screenHeight / 14.78;
   static double height60 = screenHeight / 13.14;
+  static double height65 = screenHeight / 11.5;
+  static double height70 = screenHeight / 10.21;
+  static double height75 = screenHeight / 9.09;
+  static double height80 = screenHeight / 8.13;
+  static double height85 = screenHeight / 7.3;
+  static double height90 = screenHeight / 6.58;
+  static double height95 = screenHeight / 6;
+  static double height100 = screenHeight / 5.53;
+  static double height105 = screenHeight / 5.14;
   static double height180 = screenHeight / 4.44;
   //dynamic width padding and margin
   static double width5 = screenHeight / 168.8;
@@ -105,6 +114,11 @@ class Dimenssions {
   static double width65 = screenHeight / 11.5;
   static double width70 = screenHeight / 10.21;
   static double width80 = screenHeight / 10.52;
+  static double width85 = screenHeight / 7.3;
+  static double width90 = screenHeight / 6.58;
+  static double width95 = screenHeight / 6;
+  static double width100 = screenHeight / 5.53;
+  static double width105 = screenHeight / 5.14;
   static double width150 = screenHeight / 5.64;
 
   static double font10 = screenHeight / 85.33;

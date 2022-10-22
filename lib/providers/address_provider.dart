@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:edelivery_flutter/models/user_location_model.dart';
 import 'package:edelivery_flutter/services/address_service.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +30,8 @@ class AddressProvider with ChangeNotifier {
   Position _pickPosition;
   Placemark _placemark = Placemark();
   Placemark _pickPlacemark = Placemark();
-
+  Placemark get placemark => _placemark;
+  Placemark get pickPlacemark => _pickPlacemark;
   List<String> addressType = [
     'Home',
     'Office',
@@ -47,7 +51,7 @@ class AddressProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void updatePosition(CameraPosition position, bool fromAddress) {
+  Future<void> updatePosition(CameraPosition position, bool fromAddress) async {
     if (_updateAddressData) {
       _loading = true;
       try {
@@ -74,11 +78,19 @@ class AddressProvider with ChangeNotifier {
         }
 
         if (_changeAddress) {
-          // _changeAddress = await getAddressFromGeocode(
-          //   LatLng(position.target.latitude, position.target.longitude,)
-          // );
+          String _address = await getAddressfromGeocode(
+            LatLng(
+              position.target.latitude,
+              position.target.longitude,
+            ),
+          );
+          fromAddress
+              ? _placemark = Placemark(name: _address)
+              : _pickPlacemark = Placemark(name: _address);
         }
-      } catch (e) {}
+      } catch (e) {
+        print(e);
+      }
     }
   }
 
@@ -87,8 +99,25 @@ class AddressProvider with ChangeNotifier {
       List<UserLocationModel> userLocations =
           await AddressService().getAddress(token);
       _userLocations = userLocations;
+      return userLocations;
     } catch (e) {
       print(e);
+    }
+  }
+
+  Future<String> getAddressfromGeocode(LatLng latLng) async {
+    String _address = 'Unknown Location Found';
+
+    Response response = await AddressService().getAddressFromGeocode(latLng);
+
+    if (response.statusCode == 200) {
+      _address = jsonDecode(response.body)["results"][0]["formatted_address"]
+          .toString();
+      print('printting address' + _address);
+      notifyListeners();
+      return _address;
+    } else {
+      print('error google map api not found');
     }
   }
 }
