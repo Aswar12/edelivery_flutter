@@ -27,7 +27,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
-    
+
     handleSignUp() async {
       setState(() {
         isLoading = true;
@@ -105,7 +105,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 horizontal: Dimenssions.height15,
               ),
               decoration: BoxDecoration(
-                color: backgroundColor2,
+                color: Colors.black12,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
@@ -159,7 +159,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 horizontal: Dimenssions.height15,
               ),
               decoration: BoxDecoration(
-                color: backgroundColor2,
+                color: Colors.black12,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
@@ -213,7 +213,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 horizontal: Dimenssions.height15,
               ),
               decoration: BoxDecoration(
-                color: backgroundColor2,
+                color: Colors.black12,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
@@ -267,7 +267,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 horizontal: Dimenssions.width15,
               ),
               decoration: BoxDecoration(
-                color: backgroundColor2,
+                color: Colors.black12,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
@@ -321,7 +321,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 horizontal: Dimenssions.width15,
               ),
               decoration: BoxDecoration(
-                color: backgroundColor2,
+                color: Colors.black12,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(

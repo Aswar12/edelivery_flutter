@@ -97,6 +97,7 @@ class Dimenssions {
   static double height95 = screenHeight / 6;
   static double height100 = screenHeight / 5.53;
   static double height105 = screenHeight / 5.14;
+  static double height150 = screenHeight / 5.6;
   static double height180 = screenHeight / 4.44;
   //dynamic width padding and margin
   static double width5 = screenHeight / 168.8;

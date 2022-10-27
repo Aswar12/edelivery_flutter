@@ -14,9 +14,9 @@ class KedaiModel {
   });
 
   KedaiModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['id'] as int;
     name = json['name'];
-    userId = json['user_id'];
+    userId = json['user_id'] as int;
     address = json['address'];
     phoneNumber = json['phone_number'];
   }

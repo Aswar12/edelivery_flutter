@@ -102,11 +102,12 @@ class AuthService {
   Future<UserModel> logOut() async {
     try {
       final pref = await SharedPreferences.getInstance();
-      final userData = jsonDecode(pref.get('user')) as Map<String, dynamic>;
+      final userData = jsonDecode(pref.get('user'));
+      var token = pref.get('token');
       var url = '$baseUrl/login';
       var headers = {
         'Content-Type': 'application/json',
-        'Authorization': userData['token'],
+        'Authorization': token,
       };
       var body = jsonEncode({});
       var response = await http.post(

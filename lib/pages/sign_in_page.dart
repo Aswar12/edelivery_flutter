@@ -97,7 +97,7 @@ class _SignInPageState extends State<SignInPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: backgroundColor2,
+                color: Colors.black12,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
@@ -151,7 +151,7 @@ class _SignInPageState extends State<SignInPage> {
                 horizontal: 16,
               ),
               decoration: BoxDecoration(
-                color: backgroundColor2,
+                color: Colors.black12,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(

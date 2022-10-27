@@ -22,12 +22,12 @@ class UserLocationModel {
   });
 
   UserLocationModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['id'] as int;
     customerName = json['customer_name'];
     address = json['address'];
     longitude = json['longitude'];
     latitude = json['latitude'];
-    addresType = json['token'];
+    addresType = json['addres_type'];
     phoneNumber = json['phone_number'];
     createdAt = DateTime.parse(json['created_at']);
     updatedAt = DateTime.parse(json['updated_at']);
@@ -39,10 +39,11 @@ class UserLocationModel {
       'customer_name': customerName,
       'address': address,
       'longitude': longitude,
+      'addres_type': addresType,
       'latitude': latitude,
       'phone_number': phoneNumber,
-      'created_at': createdAt,
-      'updated_at': updatedAt,
+      'created_at': createdAt.toIso8601String(),
+      'updated_at': updatedAt.toIso8601String(),
     };
   }
 }

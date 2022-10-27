@@ -1,5 +1,5 @@
-import 'package:edelivery_flutter/models/user_location_model.dart';
 import 'package:edelivery_flutter/providers/address_provider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +28,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
         Provider.of<TransactionProvider>(context);
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     AddressProvider addressProvider = Provider.of<AddressProvider>(context);
+
     handleCheckout() async {
       setState(() {
         isLoading = true;
@@ -43,6 +44,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
           authProvider.user.token,
           cartProvider.carts,
           cartProvider.totalPrice(),
+          addressProvider.userLocation.last.id,
+          addressProvider.userLocations.last.address,
         )) {
           cartProvider.carts = [];
           Navigator.pushNamedAndRemoveUntil(
@@ -152,7 +155,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           ),
                         ),
                         Text(
-                          authProvider.user.name,
+                          addressProvider.userLocation.last.customerName,
                           style: primaryTextStyle.copyWith(
                             fontWeight: medium,
                           ),
@@ -172,7 +175,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             ),
                             SingleChildScrollView(
                               child: Text(
-                                'Anugrah motor, depan \nwarung sahabat, jalan poros\n makassar pare-pare km75,\n kelurahan Bone',
+                                addressProvider.userLocation.last.address,
                                 style: primaryTextStyle.copyWith(
                                   fontWeight: medium,
                                 ),
@@ -188,7 +191,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           ),
                         ),
                         Text(
-                          authProvider.user.phoneNumber,
+                          addressProvider.userLocation.last.phoneNumber,
+                          overflow: TextOverflow.clip,
                           style: primaryTextStyle.copyWith(
                             fontWeight: medium,
                           ),

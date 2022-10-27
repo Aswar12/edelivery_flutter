@@ -28,7 +28,7 @@ class _SearchPageState extends State<SearchPage> {
       },
     );
     Future.delayed(
-      Duration(seconds: 3),
+      const Duration(seconds: 4),
       (() {
         searchController.text.isEmpty
             ? Navigator.pushNamedAndRemoveUntil(

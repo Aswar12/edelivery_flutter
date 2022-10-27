@@ -11,8 +11,15 @@ import 'package:http/http.dart';
 
 class AddressProvider with ChangeNotifier {
   String _selectedAddress;
+  UserLocationModel _userLocation;
+
+  AddressProvider();
 
   String get selectedAddress => _selectedAddress;
+
+  get addressTypeIndex => _addressTypeIndex;
+
+  GoogleMapController get googleMapController => _mapController;
 
   set selectedAddress(String selectedAddress) {
     _selectedAddress = selectedAddress;
@@ -21,39 +28,48 @@ class AddressProvider with ChangeNotifier {
 
   List<UserLocationModel> get userLocations => _userLocations;
 
-  set userLocations(List<UserLocationModel> userLocations) {
-    _userLocations = userLocations;
-    notifyListeners();
-  }
-
-  Position _position;
-  Position _pickPosition;
   Placemark _placemark = Placemark();
   Placemark _pickPlacemark = Placemark();
   Placemark get placemark => _placemark;
   Placemark get pickPlacemark => _pickPlacemark;
-  List<String> addressType = [
+  final List<String> _addressTypeList = [
     'Home',
     'Office',
-    'School',
     'Other',
   ];
-  int addressTypeIndex = 0;
+
+  List<String> get addressTypeList => _addressTypeList;
+  int _addressTypeIndex = 0;
 
   List<UserLocationModel> _userLocations = [];
+
+  List<UserLocationModel> _addressList = [];
+  List<UserLocationModel> get addressList => _addressList;
+  List<UserLocationModel> _allAddressList = [];
+  List<UserLocationModel> get allAddressList => _allAddressList;
+
   GoogleMapController _mapController;
-  bool _loading = false;
+  bool _isLoading = false;
   bool _updateAddressData = true;
   bool _changeAddress = true;
+  bool _loading = false;
+  Position _position;
+  Position _pickPosition;
+
+  bool get loading => _loading;
+  bool get updateAddressData => _updateAddressData;
+  Position get position => _position;
+  Position get pickPosition => _pickPosition;
 
   void setMapController(GoogleMapController mapController) {
     _mapController = mapController;
     notifyListeners();
   }
 
-  Future<void> updatePosition(CameraPosition position, bool fromAddress) async {
+  void updatePosition(CameraPosition position, bool fromAddress) async {
     if (_updateAddressData) {
       _loading = true;
+      notifyListeners();
       try {
         if (fromAddress) {
           _position = Position(
@@ -78,6 +94,7 @@ class AddressProvider with ChangeNotifier {
         }
 
         if (_changeAddress) {
+          // ignore: no_leading_underscores_for_local_identifiers
           String _address = await getAddressfromGeocode(
             LatLng(
               position.target.latitude,
@@ -87,19 +104,31 @@ class AddressProvider with ChangeNotifier {
           fromAddress
               ? _placemark = Placemark(name: _address)
               : _pickPlacemark = Placemark(name: _address);
+          _loading = false;
         }
+        notifyListeners();
       } catch (e) {
         print(e);
       }
+      _loading = false;
+      notifyListeners();
+    } else {
+      _updateAddressData = true;
     }
   }
 
-  Future<void> getUserLocations(String token) async {
+  List<UserLocationModel> get userLocation => _userLocations;
+
+  set products(List<UserLocationModel> userLocations) {
+    _userLocations = userLocations;
+    notifyListeners();
+  }
+
+  Future<void> getUserLocations() async {
     try {
       List<UserLocationModel> userLocations =
-          await AddressService().getAddress(token);
+          await AddressService().getAddress();
       _userLocations = userLocations;
-      return userLocations;
     } catch (e) {
       print(e);
     }
@@ -119,5 +148,71 @@ class AddressProvider with ChangeNotifier {
     } else {
       print('error google map api not found');
     }
+  }
+
+  Map<String, dynamic> _getAddress;
+  Map get getAddress => _getAddress;
+
+  UserLocationModel dataAdress;
+  UserLocationModel get dataAddress => getUserAddress();
+
+  getUserAddress() {
+    Future<UserLocationModel> _dataAddress =
+        AddressService().getUserAddressFormLocal();
+    notifyListeners();
+  }
+
+  void setAddressTypeIndex(int index) {
+    _addressTypeIndex = index;
+    notifyListeners();
+  }
+
+  Future<bool> addAddress({
+    String customerName,
+    String phoneNumber,
+    String address,
+    double latitude,
+    double longitude,
+    int addressType,
+  }) async {
+    try {
+      UserLocationModel userLocationModel = await AddressService().addAddress(
+        customerName: customerName,
+        phoneNumber: phoneNumber,
+        address: address,
+        latitude: latitude.toString(),
+        longitude: longitude.toString(),
+        addressType: addressType,
+      );
+      _userLocation = userLocationModel;
+      getAddressList();
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<void> getAddressList() async {
+    Response response = await AddressService().getAllAddress();
+    if (response.statusCode == 200) {
+      _addressList = [];
+      _allAddressList = [];
+      var data = jsonDecode(response.body)['data'];
+      for (var item in data) {
+        _addressList.add(UserLocationModel.fromJson(item));
+        _allAddressList.add(UserLocationModel.fromJson(item));
+      }
+    } else {
+      _addressList = [];
+      _allAddressList = [];
+    }
+    notifyListeners();
+  }
+
+  void setAddAddressData() {
+    _position = _pickPosition;
+    _placemark = _pickPlacemark;
+    _updateAddressData = false;
   }
 }
