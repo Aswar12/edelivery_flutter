@@ -33,6 +33,7 @@ class _SplashPageState extends State<SplashPage> {
     await Provider.of<ProductProvider>(context, listen: false).getProducts();
     await Provider.of<AddressProvider>(context, listen: false)
         .getUserLocations();
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (!mounted) return;
     AuthProvider authProvider =

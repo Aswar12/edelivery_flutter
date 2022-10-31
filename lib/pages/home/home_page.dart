@@ -30,11 +30,16 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    getInit();
     pageController.addListener(() {
       setState(() {
         _currPageValue = pageController.page;
       });
     });
+  }
+
+  getInit() async {
+    await Provider.of<ProductProvider>(context, listen: false).getProducts();
   }
 
   @override

@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:edelivery_flutter/models/user_location_model.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -21,7 +20,6 @@ class AddressService {
       'Authorization': token,
     };
     var response = await http.get(url, headers: headers);
-    print(response.body);
     if (response.statusCode == 200) {
       List<dynamic> data = jsonDecode(response.body)['data'];
       List<UserLocationModel> locations = [];

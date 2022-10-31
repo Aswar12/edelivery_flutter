@@ -19,6 +19,7 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   int currentIndex = 0;
+  
 
   @override
   Widget build(BuildContext context) {

@@ -1,10 +1,10 @@
 import 'package:edelivery_flutter/models/user_location_model.dart';
-import 'package:edelivery_flutter/pages/pick_address_map.dart';
 import 'package:edelivery_flutter/providers/address_provider.dart';
 import 'package:edelivery_flutter/providers/auth_provider.dart';
 import 'package:edelivery_flutter/theme.dart';
 import 'package:edelivery_flutter/widgets/loading_button.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -29,6 +29,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
   @override
   void initState() {
     super.initState();
+    _determinatePosition();
     _islogged = Provider.of<AuthProvider>(context, listen: false).user != null;
     if (addressProvider.userLocations.isNotEmpty) {
       _cameraPosition = CameraPosition(
@@ -144,7 +145,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
-              height: Dimenssions.height150,
+              height: Dimenssions.height220,
               margin: const EdgeInsets.all(2),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
@@ -163,15 +164,16 @@ class _AddAddressPageState extends State<AddAddressPage> {
                     //         initialPosition: initalPosition,
                     //       ));
                     // },
-                    myLocationButtonEnabled: true,
-                    mapType: MapType.normal,
+
                     initialCameraPosition:
                         CameraPosition(target: initalPosition, zoom: 17),
                     zoomControlsEnabled: false,
                     compassEnabled: false,
                     indoorViewEnabled: true,
+                    myLocationButtonEnabled: true,
                     myLocationEnabled: true,
-                    mapToolbarEnabled: false,
+                    mapType: MapType.normal,
+                    mapToolbarEnabled: true,
                     onCameraIdle: () {
                       addressProvider.updatePosition(_cameraPosition, true);
                     },
@@ -229,9 +231,6 @@ class _AddAddressPageState extends State<AddAddressPage> {
                     );
                   }),
             ),
-            SizedBox(
-              height: Dimenssions.height20,
-            ),
             Container(
               margin: EdgeInsets.all(Dimenssions.height20),
               child: TextFormField(
@@ -255,9 +254,6 @@ class _AddAddressPageState extends State<AddAddressPage> {
                 ),
               ),
             ),
-            SizedBox(
-              height: Dimenssions.height20,
-            ),
             Container(
               margin: EdgeInsets.all(Dimenssions.height20),
               child: TextFormField(
@@ -280,9 +276,6 @@ class _AddAddressPageState extends State<AddAddressPage> {
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: Dimenssions.height20,
             ),
             Container(
               margin: EdgeInsets.all(Dimenssions.height20),
@@ -316,5 +309,29 @@ class _AddAddressPageState extends State<AddAddressPage> {
               child: const LoadingButton())
           : saveAddressButton(),
     );
+  }
+
+  Future<Position> _determinatePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    return position;
   }
 }

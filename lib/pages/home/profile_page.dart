@@ -63,11 +63,17 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             child: Row(
               children: [
-                ClipRRect(
-                  child: Image.network(
-                    user.profilePhotoUrl,
-                    width: Dimenssions.width60,
-                    fit: BoxFit.cover,
+                Container(
+                  width: Dimenssions.width55,
+                  height: Dimenssions.width55,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(
+                        user.profilePhotoUrl,
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(

@@ -20,6 +20,15 @@ class CheckoutPage extends StatefulWidget {
 
 class _CheckoutPageState extends State<CheckoutPage> {
   bool isLoading = false;
+  void initState() {
+    super.initState();
+    getInit();
+  }
+
+  getInit() async {
+    await Provider.of<AddressProvider>(context, listen: false)
+        .getUserLocations();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,23 +133,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 ),
                 Row(
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Image.asset(
-                          'assets/icon_store_location.png',
-                          width: Dimenssions.width40,
-                        ),
-                        Image.asset(
-                          'assets/icon_line.png',
-                          height: Dimenssions.height30,
-                        ),
-                        Image.asset(
-                          'assets/icon_your_address.png',
-                          width: Dimenssions.width40,
-                        ),
-                      ],
-                    ),
                     SizedBox(
                       width: Dimenssions.width15,
                     ),
@@ -161,27 +153,31 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           ),
                         ),
                         SizedBox(
-                          height: defaultMargin,
+                          height: Dimenssions.height20,
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Your Address',
-                              style: secondaryTextStyle.copyWith(
-                                fontSize: 12,
-                                fontWeight: light,
-                              ),
-                            ),
-                            SingleChildScrollView(
-                              child: Text(
+                        Text(
+                          'Your Address',
+                          style: secondaryTextStyle.copyWith(
+                            fontSize: 12,
+                            fontWeight: light,
+                          ),
+                        ),
+                        Container(
+                          width: 250,
+                          child: Column(
+                            children: [
+                              Text(
                                 addressProvider.userLocation.last.address,
-                                style: primaryTextStyle.copyWith(
-                                  fontWeight: medium,
+                                style: subtitleTextStyle.copyWith(
+                                  fontWeight: light,
                                 ),
+                                textAlign: TextAlign.justify,
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: Dimenssions.height10,
                         ),
                         Text(
                           'Your Number Phone',
@@ -309,7 +305,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     Text(
                       NumberFormat.currency(
                               locale: 'id', symbol: 'Rp ', decimalDigits: 0)
-                          .format(cartProvider.totalPrice()),
+                          .format(cartProvider.totalPrice() + 5000),
                       style: priceTextStyle.copyWith(
                         fontWeight: semiBold,
                       ),
