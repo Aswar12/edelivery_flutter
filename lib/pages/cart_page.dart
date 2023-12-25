@@ -1,3 +1,4 @@
+import 'package:edelivery_flutter/providers/address_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -5,8 +6,23 @@ import 'package:edelivery_flutter/providers/cart_provider.dart';
 import 'package:edelivery_flutter/theme.dart';
 import 'package:edelivery_flutter/widgets/cart_card.dart';
 
-class CartPage extends StatelessWidget {
+class CartPage extends StatefulWidget {
   const CartPage({Key key}) : super(key: key);
+
+  @override
+  State<CartPage> createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
+  void initState() {
+    super.initState();
+    getInit();
+  }
+
+  getInit() async {
+    await Provider.of<AddressProvider>(context, listen: false)
+        .getUserLocations();
+  }
 
   @override
   Widget build(BuildContext context) {

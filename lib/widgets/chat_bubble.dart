@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:edelivery_flutter/models/product_model.dart';
 import 'package:edelivery_flutter/theme.dart';
+import 'package:intl/intl.dart';
 
 class ChatBubble extends StatelessWidget {
   final String text;
@@ -57,7 +58,9 @@ class ChatBubble extends StatelessWidget {
                         height: 4,
                       ),
                       Text(
-                        '\$${product.price}',
+                        NumberFormat.currency(
+                                locale: 'id', symbol: 'Rp ', decimalDigits: 0)
+                            .format(product.price),
                         style: priceTextStyle.copyWith(
                           fontWeight: medium,
                         ),

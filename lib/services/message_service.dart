@@ -32,12 +32,12 @@ class MessageService {
     }
   }
 
-  Future<void> addMessage(
-      {UserModel user,
-      bool isFromUser,
-      String message,
-     
-      ProductModel product}) async {
+  Future<void> addMessage({
+    UserModel user,
+    bool isFromUser,
+    String message,
+    ProductModel product,
+  }) async {
     try {
       firestore.collection('messages').add({
         'userId': user.id,

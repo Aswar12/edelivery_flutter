@@ -20,15 +20,7 @@ class CheckoutPage extends StatefulWidget {
 
 class _CheckoutPageState extends State<CheckoutPage> {
   bool isLoading = false;
-  void initState() {
-    super.initState();
-    getInit();
-  }
-
-  getInit() async {
-    await Provider.of<AddressProvider>(context, listen: false)
-        .getUserLocations();
-  }
+  
 
   @override
   Widget build(BuildContext context) {

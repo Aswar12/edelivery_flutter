@@ -31,11 +31,11 @@ class AppColumn extends StatelessWidget {
               size: Dimenssions.font14,
             ),
             SizedBox(
-              width: Dimenssions.width20,
+              width: Dimenssions.width10 / 2,
             ),
             BigText(text: '|'),
             SizedBox(
-              width: Dimenssions.width20,
+              width: Dimenssions.width10 / 2,
             ),
             SmallText(
               text: category,

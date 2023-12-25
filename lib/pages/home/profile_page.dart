@@ -25,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
       if (await authProvider.logOut()) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            backgroundColor: alertColor,
+            backgroundColor: mainColor,
             content: const Text(
               'Anda Berhasil Logout!',
               textAlign: TextAlign.center,
@@ -171,8 +171,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   'Add Address',
                 ),
               ),
-              menuItem(
-                'Your Orders',
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/your-order');
+                },
+                child: menuItem(
+                  'Your Orders',
+                ),
               ),
               SizedBox(
                 height: Dimenssions.height30,

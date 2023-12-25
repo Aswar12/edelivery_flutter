@@ -14,9 +14,9 @@ class KedaiModel {
   });
 
   KedaiModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'] as int;
+    id = json['id'];
     name = json['name'];
-    userId = json['user_id'] as int;
+    userId = json['user_id'];
     address = json['address'];
     phoneNumber = json['phone_number'];
   }
@@ -31,3 +31,5 @@ class KedaiModel {
     };
   }
 }
+
+class UninitializedKedaiModel extends KedaiModel {}

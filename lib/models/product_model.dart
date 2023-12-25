@@ -33,7 +33,9 @@ class ProductModel {
     price = double.parse(json['price'].toString());
     description = json['description'];
     tags = json['tags'];
-    kedai = KedaiModel.fromJson(json['kedai']);
+    kedai = json['kedai'] == {}
+        ? UninitializedKedaiModel()
+        : KedaiModel.fromJson(json['kedai']);
     category = CategoryModel.fromJson(json['category']);
     galleries = json['galleries']
         .map<GalleryModel>((gallery) => GalleryModel.fromJson(gallery))
@@ -52,8 +54,8 @@ class ProductModel {
       'kedai': kedai.toJson(),
       'category': category.toJson(),
       'galleries': galleries.map((gallery) => gallery.toJson()).toList(),
-      'created_at': createdAt.toString(),
-      'updated_at': updatedAt.toString(),
+      'created_at': createdAt.toIso8601String(),
+      'updated_at': updatedAt.toIso8601String(),
     };
   }
 }

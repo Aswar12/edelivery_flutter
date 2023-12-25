@@ -19,7 +19,6 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   int currentIndex = 0;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -253,7 +252,7 @@ class _ProductPageState extends State<ProductPage> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             backgroundColor: alertColor,
-                            content: Text(
+                            content: const Text(
                               'Has been removed from the Wishlist',
                               textAlign: TextAlign.center,
                             ),
@@ -280,7 +279,7 @@ class _ProductPageState extends State<ProductPage> {
                 left: defaultMargin,
                 right: defaultMargin,
               ),
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(Dimenssions.width15),
               decoration: BoxDecoration(
                 color: backgroundColor2,
                 borderRadius: BorderRadius.circular(4),
@@ -323,7 +322,7 @@ class _ProductPageState extends State<ProductPage> {
                     ),
                   ),
                   SizedBox(
-                    height: 12,
+                    height: Dimenssions.width15,
                   ),
                   Text(
                     widget.product.description,
@@ -358,7 +357,7 @@ class _ProductPageState extends State<ProductPage> {
               child: Container(
                 width: 54,
                 height: 54,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(
                       'assets/button_chat.png',
@@ -368,7 +367,7 @@ class _ProductPageState extends State<ProductPage> {
               ),
             ),
             SizedBox(
-              width: 16,
+              width: Dimenssions.width15,
             ),
             Expanded(
               child: Container(

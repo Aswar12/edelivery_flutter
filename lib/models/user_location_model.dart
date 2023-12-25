@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 class UserLocationModel {
   int id;
   String customerName;
   String address;
+  int userId;
   String latitude;
   String longitude;
   String addresType;
@@ -13,6 +16,7 @@ class UserLocationModel {
     this.id,
     this.customerName,
     this.address,
+    this.userId,
     this.longitude,
     this.latitude,
     this.addresType,
@@ -22,9 +26,10 @@ class UserLocationModel {
   });
 
   UserLocationModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'] as int;
+    id = json['id'];
     customerName = json['customer_name'];
     address = json['address'];
+    userId = json['user_id'];
     longitude = json['longitude'];
     latitude = json['latitude'];
     addresType = json['addres_type'];
@@ -38,6 +43,7 @@ class UserLocationModel {
       'id': id,
       'customer_name': customerName,
       'address': address,
+      'user_id': userId,
       'longitude': longitude,
       'addres_type': addresType,
       'latitude': latitude,

@@ -25,7 +25,7 @@ class UserModel {
     id = json['id'];
     name = json['name'];
     email = json['email'];
-    // userLocations = json['user_locations']
+    // u   serLocations = json['user_locations']
     //     .map<UserLocationModel>((lokasi) => UserLocationModel.fromJson(lokasi))
     // .toList();
     phoneNumber = json['phone_number'];

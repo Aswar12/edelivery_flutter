@@ -3,6 +3,7 @@ import 'package:edelivery_flutter/models/product_model.dart';
 class MessageModel {
   String message;
   int userId;
+
   String userName;
   String userImage;
   bool isFromUser;

@@ -1,3 +1,5 @@
+import 'package:edelivery_flutter/pages/view_order_page.dart';
+import 'package:edelivery_flutter/providers/address_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:edelivery_flutter/pages/home/chat_page.dart';
@@ -16,6 +18,16 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  void initState() {
+    super.initState();
+    getInit();
+  }
+
+  getInit() async {
+    await Provider.of<AddressProvider>(context, listen: false)
+        .getUserLocations();
+  }
+
   @override
   Widget build(BuildContext context) {
     PageProvider pageProvider = Provider.of<PageProvider>(context);
@@ -76,7 +88,7 @@ class _MainPageState extends State<MainPage> {
                     right: 8,
                   ),
                   child: Image.asset(
-                    'assets/icon_chat.png',
+                    'assets/motorbike.png',
                     width: Dimenssions.width20,
                     color: pageProvider.currentIndex == 1
                         ? primaryColor
@@ -130,7 +142,7 @@ class _MainPageState extends State<MainPage> {
           return const HomePage();
           break;
         case 1:
-          return const ChatPage();
+          return const ViewOrderPage();
           break;
         case 2:
           return const WishlistPage();

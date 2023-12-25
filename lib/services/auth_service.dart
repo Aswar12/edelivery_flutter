@@ -5,17 +5,31 @@ import 'dart:convert';
 import 'package:edelivery_flutter/models/user_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   String baseUrl = 'http://edelivery.my.id/api';
 
-  Future<UserModel> fetch(String token) async {
+  Future<UserModel> fetch() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
     var url = '$baseUrl/user';
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': token,
     };
     var response = await http.get(url, headers: headers);
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body)['data'];
+      UserModel user = UserModel.fromJson(data['user']);
+      user.token = token;
+      final userdata = jsonEncode(user);
+
+      prefs.setString('user', userdata);
+      return user;
+    } else {
+      throw Exception('Gagal update data user');
+    }
   }
 
   Future<UserModel> register({
@@ -103,7 +117,7 @@ class AuthService {
     try {
       final pref = await SharedPreferences.getInstance();
       final userData = jsonDecode(pref.get('user'));
-      var token = pref.get('token');
+      String token = pref.get('token');
       var url = '$baseUrl/login';
       var headers = {
         'Content-Type': 'application/json',
@@ -119,6 +133,44 @@ class AuthService {
     } catch (e) {
       print(e);
       return null;
+    }
+  }
+
+  Future<UserModel> updateDataUser({
+    String name,
+    String username,
+    String phoneNumber,
+  }) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.get('token');
+    var url = '$baseUrl/userdata';
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': token,
+    };
+    var body = jsonEncode({
+      'name': name,
+      'username': username,
+      'phone_number': phoneNumber,
+    });
+
+    var response = await http.post(
+      url,
+      headers: headers,
+      body: body,
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body)['data'];
+      UserModel user = UserModel.fromJson(data);
+      var token = user.token;
+      prefs.clear();
+      final userdata = jsonEncode(user);
+      prefs.setString('user', userdata);
+      prefs.setString('token', token);
+      return user;
     }
   }
 }

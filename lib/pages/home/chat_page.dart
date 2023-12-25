@@ -109,7 +109,9 @@ class ChatPage extends StatelessWidget {
                       horizontal: Dimenssions.height20,
                     ),
                     children: [
-                      ChatTile(snapshot.data[snapshot.data.length - 1]),
+                      ChatTile(
+                        snapshot.data[snapshot.data.length - 1],
+                      ),
                     ],
                   ),
                 ),

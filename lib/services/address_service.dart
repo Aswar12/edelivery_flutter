@@ -19,7 +19,10 @@ class AddressService {
       'Content-Type': 'application/json',
       'Authorization': token,
     };
-    var response = await http.get(url, headers: headers);
+    var response = await http.get(url, headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token,
+    });
     if (response.statusCode == 200) {
       List<dynamic> data = jsonDecode(response.body)['data'];
       List<UserLocationModel> locations = [];
@@ -27,10 +30,10 @@ class AddressService {
       for (var item in data) {
         locations.add(UserLocationModel.fromJson(item));
       }
-      print(locations);
+
       return locations;
     } else {
-      throw Exception('gagal get address');
+      throw Exception('gagal get Locations');
     }
   }
 
@@ -67,7 +70,7 @@ class AddressService {
     int addressType,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var token = prefs.get('token');
+    String token = prefs.get('token');
     var url = '$baseUrl/address';
     var headers = {
       'Content-Type': 'application/json',
@@ -83,12 +86,7 @@ class AddressService {
       'created_at': DateTime.now().toIso8601String(),
       'updated_at': DateTime.now().toIso8601String(),
     });
-    var response = await http.post(url,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': token,
-        },
-        body: body);
+    var response = await http.post(url, headers: headers, body: body);
     print(response.body);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body)['data'];
@@ -118,7 +116,7 @@ class AddressService {
 
   Future<http.Response> getAllAddress() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var token = prefs.get('token');
+    String token = prefs.get('token');
     var url = '$baseUrl/address';
     var headers = {
       'Content-Type': 'application/json',
@@ -127,10 +125,7 @@ class AddressService {
 
     http.Response response = await http.get(
       url,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': token,
-      },
+      headers: headers,
     );
     return response;
   }

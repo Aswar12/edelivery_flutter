@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:edelivery_flutter/models/message_model.dart';
 import 'package:edelivery_flutter/models/product_model.dart';
@@ -81,7 +82,7 @@ class _DetailChatPageState extends State<DetailChatPage> {
     Widget productPreview() {
       return Container(
         width: 225,
-        height: 74,
+        height: Dimenssions.height85,
         margin: const EdgeInsets.only(bottom: 20),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -118,7 +119,15 @@ class _DetailChatPageState extends State<DetailChatPage> {
                     height: 2,
                   ),
                   Text(
-                    '\$${widget.product.price}',
+                    NumberFormat.currency(
+                            locale: 'id', symbol: 'Rp ', decimalDigits: 0)
+                        .format(widget.product.price),
+                    style: priceTextStyle.copyWith(
+                      fontWeight: medium,
+                    ),
+                  ),
+                  Text(
+                    widget.product.kedai.name,
                     style: priceTextStyle.copyWith(
                       fontWeight: medium,
                     ),

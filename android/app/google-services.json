@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "629426689993",
-    "project_id": "edelivery-53aec",
-    "storage_bucket": "edelivery-53aec.appspot.com"
+    "project_number": "189601079517",
+    "project_id": "edelivery-39f38",
+    "storage_bucket": "edelivery-39f38.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:629426689993:android:5ad0e7ec7f3a901c40fa18",
+        "mobilesdk_app_id": "1:189601079517:android:2ec71be29e93f478953b34",
         "android_client_info": {
           "package_name": "com.aswar.edelivery_flutter"
         }
       },
       "oauth_client": [
         {
-          "client_id": "629426689993-llul2uhutvglqg4jiv52o5g0q84t9slf.apps.googleusercontent.com",
+          "client_id": "189601079517-euk2bn8trf2bdsjriq9hn5mhb8tqe8on.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC8T2TJMOTnwTMWO6KuwvCcAMHTRy5toyA"
+          "current_key": "AIzaSyDwVBjDy7IECVySKy7t0ZAK-Vov7CJsgBY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "629426689993-llul2uhutvglqg4jiv52o5g0q84t9slf.apps.googleusercontent.com",
+              "client_id": "189601079517-euk2bn8trf2bdsjriq9hn5mhb8tqe8on.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -29,6 +29,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
   @override
   void initState() {
     super.initState();
+    getInit();
     _determinatePosition();
     _islogged = Provider.of<AuthProvider>(context, listen: false).user != null;
     if (addressProvider.userLocations.isNotEmpty) {
@@ -43,6 +44,11 @@ class _AddAddressPageState extends State<AddAddressPage> {
         double.parse(addressProvider.getAddress["longitude"]),
       );
     }
+  }
+
+  void getInit() async {
+    await Provider.of<AddressProvider>(context, listen: false)
+        .getUserLocations();
   }
 
   @override

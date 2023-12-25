@@ -1,7 +1,9 @@
 import 'package:edelivery_flutter/pages/add_address_page.dart';
 import 'package:edelivery_flutter/pages/pick_address_map.dart';
 import 'package:edelivery_flutter/pages/search_page.dart';
+import 'package:edelivery_flutter/pages/view_order_page.dart';
 import 'package:edelivery_flutter/providers/address_provider.dart';
+import 'package:edelivery_flutter/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -76,9 +78,8 @@ class _MyAppState extends State<MyApp> {
           '/add-address': (context) => const AddAddressPage(),
           '/search': (context) => const SearchPage(),
           '/pick-address': (context) => const PickAddressMap(),
+          '/your-order': (context) => const ViewOrderPage(),
         },
-        defaultTransition: Transition.fade,
-        transitionDuration: Duration(seconds: 1),
       ),
     );
   }
