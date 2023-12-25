@@ -1,5 +1,3 @@
-import 'package:edelivery_flutter/models/product_model.dart';
-
 class ItemsModel {
   int id;
   int userId;

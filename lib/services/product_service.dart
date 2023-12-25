@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:edelivery_flutter/models/product_model.dart';
 
 class ProductService {
-  String baseUrl = 'http://edelivery.my.id/api';
+  String baseUrl = 'http://antarkanma.my.id/api';
 
   Future<List<ProductModel>> getProducts() async {
     var url = '$baseUrl/products';

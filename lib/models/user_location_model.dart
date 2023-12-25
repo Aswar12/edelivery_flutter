@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class UserLocationModel {
   int id;
   String customerName;

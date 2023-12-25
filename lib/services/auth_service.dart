@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
-  String baseUrl = 'http://edelivery.my.id/api';
+  String baseUrl = 'http://antarkanma.my.id/api';
 
   Future<UserModel> fetch() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

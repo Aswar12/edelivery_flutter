@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AddressService {
-  String baseUrl = 'http://edelivery.my.id/api';
+  String baseUrl = 'http://antarkanma.my.id/api';
   Future<List<UserLocationModel>> getAddress() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token');

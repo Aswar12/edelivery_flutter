@@ -3,7 +3,6 @@ import 'package:edelivery_flutter/pages/pick_address_map.dart';
 import 'package:edelivery_flutter/pages/search_page.dart';
 import 'package:edelivery_flutter/pages/view_order_page.dart';
 import 'package:edelivery_flutter/providers/address_provider.dart';
-import 'package:edelivery_flutter/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

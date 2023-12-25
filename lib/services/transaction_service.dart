@@ -1,13 +1,12 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
-import 'package:edelivery_flutter/models/transaction_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/cart_model.dart';
 
 class TransactionService {
-  String baseUrl = 'http://edelivery.my.id/api';
+  String baseUrl = 'http://antarkanma.my.id/api';
 
   Future<bool> checkout(String token, List<CartModel> carts, double totalPrice,
       int userAddressId, String address) async {
